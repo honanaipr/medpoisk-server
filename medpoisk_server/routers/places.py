@@ -9,7 +9,7 @@ from faker import Faker
 
 class Place(BaseModel):
     id: UUID
-    heading: str
+    title: str
 
     def __hesh__(self):
         return self.id
@@ -28,7 +28,7 @@ Faker.seed(0)
 fake_places_db = [
     Place(
         id=uuid4(),
-        heading=fake.word(),
+        title=fake.word(),
     )
     for n in range(5)
 ]
