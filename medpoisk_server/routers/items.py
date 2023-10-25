@@ -3,7 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from uuid import uuid4, UUID
 from faker import Faker
-
+from .places import Place, fake_places_db
+import random
 # import faker_commerce
 
 
@@ -12,6 +13,7 @@ class Item(BaseModel):
     heading: str
     amount: int
     min_amount: int
+    places: list[Place]
 
     def __hesh__(self):
         return self.id
@@ -33,6 +35,7 @@ fake_items_db = [
         heading=fake.sentence(),
         amount=fake.random_number(digits=2),
         min_amount=fake.random_number(digits=2),
+        places=random.sample(fake_places_db, random.randint(a=1, b=3))
     )
     for n in range(10)
 ]
