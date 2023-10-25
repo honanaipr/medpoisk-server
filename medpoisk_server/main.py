@@ -2,8 +2,21 @@ from fastapi import Depends, FastAPI
 from .internal import admin
 from .routers import items, doctors, rooms, places
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:5173", #vite dev server on port 5173
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 v1 = FastAPI()
 app.mount("/api/v0", v1)
