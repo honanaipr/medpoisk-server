@@ -45,9 +45,6 @@ def init_products(db):
         db.refresh(db_product)
         products[i] = schemas.Product.model_validate(db_product)
 
-from typing import Optional, Union, List, Dict, Any, Mapping, Type, TypeVar, Generic
-import pydantic
-
 
 def init_positions(db):
     for position in [
@@ -65,4 +62,30 @@ def init_positions(db):
         )
         db.add(db_position)
         db.commit()
-        
+
+def init_doctors(db):
+    for doctor in [
+        schemas.DoctorCreate(
+            name=fake.word(),
+        )
+        for i in range(5)
+    ]:
+        db_doctor = models.Doctor(
+            name=doctor.name
+        )
+        db.add(db_doctor)
+        db.commit()
+
+
+def init_rooms(db):
+    for room in [
+        schemas.RoomCreate(
+            number=fake.building_number(),
+        )
+        for i in range(5)
+    ]:
+        db_room = models.Room(
+            number=room.number
+        )
+        db.add(db_room)
+        db.commit()

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from ..crud import get_products, get_product_amount
-from ..schemas import ProductPublick
+from ..schemas import ProductPublickShort
 
 
 router = APIRouter(
@@ -12,7 +12,7 @@ router = APIRouter(
 
 from .. import schemas
 
-@router.get("/", response_model=list[ProductPublick])
+@router.get("/", response_model=list[ProductPublickShort])
 async def read_products():
     db_products = get_products(db)
     products = []

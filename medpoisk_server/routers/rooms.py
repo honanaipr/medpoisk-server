@@ -1,18 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
-
-from pydantic import BaseModel
-from uuid import uuid4, UUID
-from faker import Faker
-
-# import faker_commerce
-
-
-class Room(BaseModel):
-    id: UUID
-    number: str
-
-    def __hesh__(self):
-        return self.id
+from ..schemas import RoomPublick
+from uuid import UUID
+from ..crud import get_rooms
+from ..dependencies import get_db
+from sqlalchemy.orm import Session
 
 
 router = APIRouter(
@@ -22,26 +13,19 @@ router = APIRouter(
     # responses={404: {"description": "Not found"}},
 )
 
-fake = Faker()
-Faker.seed(0)
-
-fake_rooms_db = [
-    Room(
-        id=uuid4(),
-        number=fake.building_number(),
-    )
-    for n in range(5)
-]
+@router.get("/", response_model=list[RoomPublick])
+async def read_items():
+    return get_rooms(db)
 
 
-@router.get("/")
-async def read_items() -> list[Room]:
-    return fake_rooms_db
+# @router.get("/{item_id}")
+# async def read_item(item_id: UUID) -> Room:
+#     for room in fake_rooms_db:
+#         if room.id == item_id:
+#             return room
+#     raise HTTPException(status_code=404, detail="Room not found")
 
-
-@router.get("/{item_id}")
-async def read_item(item_id: UUID) -> Room:
-    for room in fake_rooms_db:
-        if room.id == item_id:
-            return room
-    raise HTTPException(status_code=404, detail="Room not found")
+from ..crud import init_rooms
+from ..database import SessionLocal
+db = SessionLocal()
+init_rooms(db)

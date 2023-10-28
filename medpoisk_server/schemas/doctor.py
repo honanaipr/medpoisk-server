@@ -6,6 +6,9 @@ from faker import Faker
 class DoctorBase(BaseModel):
     name: str
 
+class DoctorCreate(DoctorBase):
+    pass
+    
 class Doctor(DoctorBase):
     id: UUID
 

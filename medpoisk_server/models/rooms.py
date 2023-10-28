@@ -6,10 +6,8 @@ from ..database import Base
 import uuid
 from .utils import generate_uuid
 
-class Doctor(Base):
-    __tablename__ = "doctors"
+class Room(Base):
+    __tablename__ = "rooms"
 
     id = Column(UUID, primary_key=True, default=generate_uuid)
-    name = Column(String)
-
-    # positions = relationship("Position", back_populates="place")
+    number = Column(Integer)
