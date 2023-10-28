@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI
-from .internal import admin
-from .routers import items, doctors, rooms, places
+# from .internal import admin
+from .routers import doctors, products, rooms, places, positions
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -21,7 +21,8 @@ app.add_middleware(
 v1 = FastAPI()
 app.mount("/api/v0", v1)
 
-v1.include_router(items.router)
+v1.include_router(positions.router)
+v1.include_router(products.router)
 v1.include_router(rooms.router)
 v1.include_router(doctors.router)
 v1.include_router(places.router)
