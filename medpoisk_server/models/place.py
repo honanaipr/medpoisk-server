@@ -10,6 +10,6 @@ class Place(Base):
     __tablename__ = "places"
 
     id = Column(UUID, primary_key=True, default=generate_uuid)
-    title = Column(String, index=True)
+    title = Column(String, unique=True)
 
     positions = relationship("Position", back_populates="place")

@@ -10,4 +10,4 @@ class Room(Base):
     __tablename__ = "rooms"
 
     id = Column(UUID, primary_key=True, default=generate_uuid)
-    number = Column(Integer)
+    number = Column(Integer, unique=True)
