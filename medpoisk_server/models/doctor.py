@@ -10,6 +10,4 @@ class Doctor(Base):
     __tablename__ = "doctors"
 
     id = Column(UUID, primary_key=True, default=generate_uuid)
-    name = Column(String)
-
-    # positions = relationship("Position", back_populates="place")
+    name = Column(String, unique=True)
