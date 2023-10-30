@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from ..crud import get_products, get_product_amount, create_product
+from ..crud import get_products, get_product_amount, create_product, get_product_places
 from ..schemas import ProductPublickShort, ProductCreate, Product, ProductPublick
 from sqlalchemy import UUID
 from ..dependencies import get_db
@@ -29,7 +29,10 @@ async def read_detailed_products(db: Session = Depends(get_db)):
     db_products = get_products(db)
     products = []
     for db_product in db_products:
-        product = schemas.ProductPublick(**db_product.__dict__, amount=get_product_amount(db, db_product.id))
+        places = []
+        for place in get_product_places(db, db_product.id):        
+            places.append(schemas.PlacePublick(**place.__dict__))
+        product = schemas.ProductPublick(**db_product.__dict__, amount=get_product_amount(db, db_product.id), places=places)
         products.append(product)
     return products
 

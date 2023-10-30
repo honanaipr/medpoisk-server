@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID, BigInteger
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID, BigInteger, CheckConstraint
 from sqlalchemy.orm import relationship
 from ..database import engine
 
@@ -12,7 +12,7 @@ class Position(Base):
     
     id = Column(UUID, primary_key=True, default=generate_uuid)
     product = relationship("Product", back_populates='positions')
-    amount = Column(Integer)
+    amount = Column(Integer, CheckConstraint("amount >= 0"), default=0)
     place = relationship("Place", back_populates="positions")
     
     
