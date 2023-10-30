@@ -1,18 +1,13 @@
 from pydantic import BaseModel, ConfigDict
-from uuid import uuid4, UUID
+from uuid import UUID
+
 
 class PlaceBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     title: str
-
-class PlaceId(BaseModel):
-    id: UUID
 
 class PlaceCreate(PlaceBase):
     pass
 
-class PlacePublick(PlaceBase):
-    pass
-
-class Place(PlaceBase, PlaceId):
-    model_config = ConfigDict(from_attributes=True)
-    # id: UUID
+class Place(PlaceBase):
+    id: UUID

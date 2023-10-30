@@ -1,8 +1,9 @@
 from pydantic import BaseModel, ConfigDict
-from uuid import uuid4, UUID
+from uuid import UUID
 
 
 class RoomBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     number: int
 
 class RoomCreate(RoomBase):
@@ -10,6 +11,3 @@ class RoomCreate(RoomBase):
 
 class Room(RoomBase):
     id: UUID
-
-class RoomPublick(RoomBase):
-    pass
