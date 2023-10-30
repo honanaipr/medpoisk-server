@@ -49,15 +49,15 @@ def init_products(db):
 def init_positions(db):
     for position in [
         schemas.PositionCreate(
-            product = products[i],
+            product = products[i].id,
             amount = fake.random_number(digits=2),
-            place = places[i],
+            place = places[i].id,
         )
         for i in range(5)
     ]:
         db_position = models.Position(
-            product_id = position.product.id,
-            place_id = position.place.id,
+            product_id = position.product,
+            place_id = position.place,
             amount = position.amount
         )
         db.add(db_position)
@@ -89,3 +89,12 @@ def init_rooms(db):
         )
         db.add(db_room)
         db.commit()
+
+# from ..crud import init_positions
+from ..database import SessionLocal
+db = SessionLocal()
+init_doctors(db)
+init_places(db)
+init_rooms(db)
+init_products(db)
+init_positions(db)
