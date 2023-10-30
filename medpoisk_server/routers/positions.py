@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from ..crud import get_positions, create_position, update_position
-from ..schemas import Position, PositionCreate, PositionPublick
+from ..schemas import Position, PositionCreate
 from .. import schemas
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
@@ -13,13 +13,13 @@ router = APIRouter(
     # responses={404: {"description": "Not found"}},
 )
 
-@router.get("/", response_model=list[PositionPublick])
+@router.get("/", response_model=list[Position])
 async def read_positions(db: Session = Depends(get_db)):
     db_positions = get_positions(db)
     return db_positions
 
 @router.put("/", response_model=Position)
-async def add_position(positions: list[PositionCreate],db: Session = Depends(get_db)):
+async def add_positions(positions: list[PositionCreate],db: Session = Depends(get_db)):
     for position in positions:
         try:
             db_positions = create_position(db, position)
@@ -31,7 +31,4 @@ async def add_position(positions: list[PositionCreate],db: Session = Depends(get
                 raise HTTPException(status_code=400, detail=f"Integrity error!") from e
 
 
-from ..crud import init_positions
-from ..database import SessionLocal
-db = SessionLocal()
-init_positions(db)
+
