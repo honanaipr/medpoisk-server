@@ -13,6 +13,7 @@ class ProductCreate(ProductBase):
     pass
 
 class ProductPublick(ProductBase):
+    id: UUID
     amount: int
     places: list[Place]
 
