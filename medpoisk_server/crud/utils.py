@@ -90,11 +90,10 @@ def init_rooms(db):
         db.add(db_room)
         db.commit()
 
-# from ..crud import init_positions
-from ..database import SessionLocal
-db = SessionLocal()
-init_doctors(db)
-init_places(db)
-init_rooms(db)
-init_products(db)
-init_positions(db)
+# from ..database import SessionLocal
+# db = SessionLocal()
+# init_doctors(db)
+# init_places(db)
+# init_rooms(db)
+# init_products(db)
+# init_positions(db)
