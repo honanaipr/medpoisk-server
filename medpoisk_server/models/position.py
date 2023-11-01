@@ -1,20 +1,21 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID, BigInteger, CheckConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, BigInteger, CheckConstraint
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 from ..database import engine
 
 from ..database import Base
 import uuid
 from .utils import generate_uuid
+import sqlalchemy as sa
 
 
 class Position(Base):
     __tablename__ = "positions"
     
-    id = Column(UUID, primary_key=True, default=generate_uuid)
+    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=generate_uuid)
     product = relationship("Product", back_populates='positions')
-    amount = Column(Integer, CheckConstraint("amount >= 0"), default=0)
+    amount: Mapped[int] = mapped_column(CheckConstraint("amount >= 0"), default=0)
     place = relationship("Place", back_populates="positions")
     
     
-    place_id = Column(UUID, ForeignKey("places.id"))
-    product_id = Column(UUID, ForeignKey("products.id"))
+    place_id: Mapped[uuid.UUID] = mapped_column(sa.UUID, ForeignKey("places.id"))
+    product_id: Mapped[uuid.UUID] = mapped_column(sa.UUID, ForeignKey("products.id"))
