@@ -12,13 +12,13 @@ def create_position(db: Session, position: schemas.PositionCreate):
         db_place = models.Place(**position.place.model_dump())
         db.add(db_place)
     else:
-        db_place = db.get_one(models.Place, position.place)
+        db_place = db.get_one(models.Place, position.place_id)
     
     if position.product:
         db_product = models.Product(**position.product.model_dump())
         db.add(db_product)
     else:
-        db_product = db.get_one(models.Product, position.product)
+        db_product = db.get_one(models.Product, position.product_id)
     
     db.flush()
     db_position  = models.Position(amount=position.amount, product=db_product, place=db_place)
