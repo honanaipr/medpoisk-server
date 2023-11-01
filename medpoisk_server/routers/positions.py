@@ -1,34 +1,35 @@
 from fastapi import APIRouter, Depends, HTTPException
 from ..crud import get_positions, create_position, update_position
-from ..schemas import Position, PositionCreate
 from .. import schemas
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError, NoResultFound
+from .. import exceptions
 
 router = APIRouter(
     prefix="/positions",
     tags=["positions"],
-    # dependencies=[Depends(get_token_header)],
-    # responses={404: {"description": "Not found"}},
 )
 
-@router.get("/", response_model=list[Position])
+@router.get("/", response_model=list[schemas.Position])
 async def read_positions(db: Session = Depends(get_db)):
     db_positions = get_positions(db)
     return db_positions
 
-@router.put("/", response_model=Position)
-async def add_positions(positions: list[PositionCreate],db: Session = Depends(get_db)):
+@router.put("/", response_model=schemas.Position)
+async def add_positions(positions: list[schemas.PositionCreate],db: Session = Depends(get_db)):
+    db_positions =[]
     for position in positions:
-        try:
-            db_positions = create_position(db, position)
-            return db_positions
-        except IntegrityError as e:
-            try:
-                db_positions = update_position(db, position)
-            except Exception as e:
-                raise HTTPException(status_code=400, detail=f"Integrity error!") from e
+        db_position = create_position(db, position)
+        db_positions.append(db_position)
+    return db_positions
 
-
-
+@router.patch("/", response_model=list[schemas.Position]|None)
+async def write_off_positions(position_updates: list[schemas.PositionUpdate], db: Session = Depends(get_db)):
+    try:
+        db_positions =[]
+        for position_update in position_updates:
+            db_position = update_position(db, position_update)
+            db_positions.append(db_position)
+        return db_positions
+    except exceptions.WriteOffMoreThenMinimal:
+        raise HTTPException(status_code=400, detail="An attempt to write off more than the allowed value")
