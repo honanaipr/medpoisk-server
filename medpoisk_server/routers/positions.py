@@ -15,7 +15,7 @@ async def read_positions(db: Session = Depends(get_db)):
     db_positions = get_positions(db)
     return db_positions
 
-@router.put("/", response_model=schemas.Position)
+@router.put("/", response_model=list[schemas.Position])
 async def add_positions(positions: list[schemas.PositionCreate],db: Session = Depends(get_db)):
     db_positions =[]
     for position in positions:
