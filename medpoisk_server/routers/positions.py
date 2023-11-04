@@ -5,6 +5,7 @@ from ..dependencies import get_db
 from sqlalchemy.orm import Session
 from .. import exceptions
 from sqlalchemy.exc import SQLAlchemyError
+import uuid
 
 router = APIRouter(
     prefix="/positions",
@@ -14,7 +15,11 @@ router = APIRouter(
 @router.get("/", response_model=list[schemas.Position])
 async def read_positions(db: Session = Depends(get_db)):
     db_positions = get_positions(db)
-    db.commit()
+    return db_positions
+
+@router.get("/{place_id}/{product_id}", response_model=list[schemas.Position])
+async def read_positions_by_id(place_id: uuid.UUID|None=None, product_id: uuid.UUID|None=None, db: Session = Depends(get_db)):
+    db_positions = get_positions(db, product_id=product_id, place_id=place_id)
     return db_positions
 
 @router.put("/", response_model=list[schemas.Position])

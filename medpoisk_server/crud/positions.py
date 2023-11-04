@@ -3,9 +3,14 @@ from .. import models, schemas
 from sqlalchemy import select
 from .. import exceptions
 from typing import Iterable
+import uuid
 
-def get_positions(db: Session, skip: int = 0, limit: int = 100) -> Iterable[models.Position]:
-    return db.scalars(select(models.Position).offset(skip).limit(limit))
+def get_positions(db: Session, product_id: uuid.UUID|None=None, place_id: uuid.UUID|None=None, skip: int = 0, limit: int = 100) -> Iterable[models.Position]:
+    stmt = select(models.Position)
+    if product_id:
+        stmt = stmt.join(models.Product).join(models.Place).where(models.Product.id == product_id).where(models.Place.id == place_id)
+    stmt = stmt.offset(skip).limit(limit)
+    return db.scalars(stmt)
 
 def create_position(db: Session, position: schemas.PositionCreate):
     if position.place:
