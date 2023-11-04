@@ -210,8 +210,7 @@ CREATE TABLE public.positions (
     id uuid NOT NULL,
     amount integer,
     place_id uuid,
-    product_id uuid,
-    CONSTRAINT positions_amount_check CHECK ((amount >= 0))
+    product_id uuid
 );
 
 
