@@ -37,10 +37,13 @@ async def write_off_positions(position_updates: list[schemas.PositionUpdate], db
         for position_update in position_updates:
             try:
                 db_position = update_position(db, position_update)
-                db_positions.append(db_position)
+                if db_position:
+                    db_positions.append(db_position)
             except exceptions.WriteOffMoreThenMinimal:
                 raise HTTPException(status_code=400, detail="An attempt to write off more than the allowed value")
-            except SQLAlchemyError:
+            except exceptions.WriteOffMoreThenExist:
+                raise HTTPException(status_code=400, detail="An attempt to write off more than exist")
+            except SQLAlchemyError as e:
                 try:
                     db_position = create_position(db, schemas.PositionCreate.model_validate(position_update) )
                     db_positions.append(db_position)

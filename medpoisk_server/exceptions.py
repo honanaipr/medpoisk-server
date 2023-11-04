@@ -3,3 +3,6 @@ class CustomExcption(Exception):
 
 class WriteOffMoreThenMinimal(CustomExcption):
     pass
+
+class WriteOffMoreThenExist(CustomExcption):
+    pass

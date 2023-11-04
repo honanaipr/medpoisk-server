@@ -13,7 +13,7 @@ class Position(Base):
     
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=generate_uuid)
     product = relationship("Product", back_populates='positions')
-    amount: Mapped[int] = mapped_column(CheckConstraint("amount >= 0"), default=0)
+    amount: Mapped[int] = mapped_column(default=0)
     place = relationship("Place", back_populates="positions")
     
     

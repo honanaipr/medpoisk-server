@@ -4,6 +4,7 @@ from sqlalchemy import select
 from .. import exceptions
 from typing import Iterable
 import uuid
+from .products import get_product_amount
 
 def get_positions(db: Session, product_id: uuid.UUID|None=None, place_id: uuid.UUID|None=None, skip: int = 0, limit: int = 100) -> Iterable[models.Position]:
     stmt = select(models.Position)
@@ -40,10 +41,20 @@ def update_position(db: Session, position: schemas.PositionUpdate):
         where(models.Product.id == position.product_id).
         where(models.Place.id == position.place_id)
         ).one()
-    db_position.amount += position.amount
-    if db_position.amount < db_position.product.min_amount:
+    if db_position.amount + position.amount < 0:
+        db.rollback()
+        raise exceptions.WriteOffMoreThenExist
+    elif db_position.amount + position.amount == 0:
+        db.delete(db_position)
+    else:
+        db_position.amount += position.amount
+    db.flush()
+    result_amount = get_product_amount(db,db_position.product.id)
+    if result_amount < db_position.product.min_amount:
         db.rollback()
         raise exceptions.WriteOffMoreThenMinimal
-    db.flush()
-    db.refresh(db_position)
-    return db_position
+    if db_position in db:
+        db.refresh(db_position)
+        return db_position
+    else:
+        return None
