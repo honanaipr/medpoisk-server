@@ -11,6 +11,6 @@ def get_room(db: Session, room_number: int) -> models.Room:
 def create_room(db: Session, room: schemas.RoomCreate) -> models.Room:
     db_room = models.Room(**room.model_dump())
     db.add(db_room)
-    db.commit()
+    db.flush()
     db.refresh(db_room)
     return db_room

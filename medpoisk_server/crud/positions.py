@@ -23,7 +23,7 @@ def create_position(db: Session, position: schemas.PositionCreate):
     db.flush()
     db_position  = models.Position(amount=position.amount, product=db_product, place=db_place)
     db.add(db_position)
-    db.commit()
+    db.flush()
     db.refresh(db_position)
     return db_position
 
@@ -39,6 +39,6 @@ def update_position(db: Session, position: schemas.PositionUpdate):
     if db_position.amount < db_position.product.min_amount:
         db.rollback()
         raise exceptions.WriteOffMoreThenMinimal
-    db.commit()
+    db.flush()
     db.refresh(db_position)
     return db_position

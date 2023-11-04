@@ -36,6 +36,6 @@ def get_publick_products(db: Session, skip: int = 0, limit: int = 100) -> list[s
 def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(**product.model_dump())
     db.add(db_product)
-    db.commit()
+    db.flush()
     db.refresh(db_product)
     return db_product

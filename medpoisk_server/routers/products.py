@@ -22,8 +22,10 @@ async def read_detailed_products(skip: int = 0, limit: int = 100, db: Session = 
 @router.put("/", response_model=Product)
 async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
     try:
-        return crud.create_product(db, product)
+        db_product = crud.create_product(db, product) 
     except IntegrityError as e:
         raise HTTPException(status_code=400, detail=f"Product barcode must be unique!") from e
+    db.commit()
+    return db_product
 
 

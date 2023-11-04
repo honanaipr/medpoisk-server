@@ -19,6 +19,8 @@ async def get_all_doctors(db: Session = Depends(get_db)):
 @router.put("/", response_model=Doctor)
 async def add_new_doctor(doctor: DoctorCreate, db: Session = Depends(get_db)):
     try:
-        return crud.create_doctor(db, doctor)
+        db_doctor = crud.create_doctor(db, doctor)
     except IntegrityError as e:
         raise HTTPException(status_code=400, detail=f"Doctor {doctor.name} already exist!") from e
+    db.commit()
+    return db_doctor
