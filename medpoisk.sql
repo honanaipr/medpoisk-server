@@ -11,7 +11,7 @@ SET standard_conforming_strings = on;
 -- Drop databases (except postgres and template1)
 --
 
-DROP DATABASE medpoisk;
+-- DROP DATABASE medpoisk;
 
 
 
@@ -20,14 +20,14 @@ DROP DATABASE medpoisk;
 -- Drop roles
 --
 
-DROP ROLE postgres;
+-- DROP ROLE postgres;
 
 
 --
 -- Roles
 --
 
-CREATE ROLE postgres;
+-- CREATE ROLE postgres;
 ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:/1N06eFaG+OMNp1GVH0O3w==$Gc9kx4VDnY+029myZIeYqTmM4XHFXwdn1mufCIaSXO4=:B0Tl0LcyJhsGwQUzJhNZzZ2TcfdBs1QxFZ/+H1UO7W0=';
 
 --
@@ -433,19 +433,3 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: DATABASE postgres; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON DATABASE postgres IS 'default administrative connection database';
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database cluster dump complete
---
-
