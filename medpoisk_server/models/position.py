@@ -1,6 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, BigInteger, CheckConstraint
 from sqlalchemy.orm import relationship, Mapped, mapped_column
-from ..database import engine
 
 from ..database import Base
 import uuid
