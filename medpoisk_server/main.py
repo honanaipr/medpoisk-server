@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI
 # from .internal import admin
-from .routers import doctors, products, rooms, places, positions
+from .routers import doctors, pictures, products, rooms, places, positions
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -27,6 +27,7 @@ v1.include_router(products.router)
 v1.include_router(rooms.router)
 v1.include_router(doctors.router)
 v1.include_router(places.router)
+v1.include_router(pictures.router)
 
 @app.get("/")
 @app.get("/transit")
