@@ -50,9 +50,6 @@ def update_position(db: Session, position: schemas.PositionUpdate):
         db_position.amount += position.amount
     db.flush()
     result_amount = get_product_amount(db,db_position.product.id)
-    if result_amount < db_position.product.min_amount:
-        db.rollback()
-        raise exceptions.WriteOffMoreThenMinimal
     if db_position in db:
         db.refresh(db_position)
         return db_position
