@@ -32,7 +32,9 @@ async def add_positions(positions: list[schemas.PositionCreate],db: Session = De
     return db_positions
 
 @router.patch("/", response_model=list[schemas.Position]|None)
-async def write_off_positions(position_updates: list[schemas.PositionUpdate], db: Session = Depends(get_db)):
+@router.patch("/{rooms_id}/", response_model=list[schemas.Position]|None)
+@router.patch("/{rooms_id}/{doctor_id}", response_model=list[schemas.Position]|None)
+async def write_off_positions(position_updates: list[schemas.PositionUpdate], rooms_id: uuid.UUID = None, doctor_id: uuid.UUID | None = None, db: Session = Depends(get_db)):
         db_positions =[]
         for position_update in position_updates:
             try:
