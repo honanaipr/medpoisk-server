@@ -5,6 +5,7 @@ from sqlalchemy import UUID
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, NoResultFound
+import uuid
 
 router = APIRouter(
     prefix="/products",
@@ -27,5 +28,11 @@ async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=f"Product barcode must be unique!") from e
     db.commit()
     return db_product
+
+@router.delete("/{id}")
+async def read_detailed_products(id: uuid.UUID, db: Session = Depends(get_db)) -> bool:
+    crud.delete_products(db, id)
+    db.commit()
+    return True
 
 

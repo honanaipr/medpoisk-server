@@ -45,3 +45,8 @@ def set_product_picture_url(db: Session, id: UUID, url: str):
     db_product = db.scalar(stmt)
     db_product.picture_url = url
     
+def delete_products(db: Session, id: UUID):
+    stmt = select(models.Product).where(models.Product.id == id)
+    db_product = db.scalar(stmt)
+    db.delete(db_product)
+    
