@@ -39,8 +39,6 @@ async def write_off_positions(position_updates: list[schemas.PositionUpdate], db
                 db_position = update_position(db, position_update)
                 if db_position:
                     db_positions.append(db_position)
-            except exceptions.WriteOffMoreThenMinimal:
-                raise HTTPException(status_code=400, detail="An attempt to write off more than the allowed value")
             except exceptions.WriteOffMoreThenExist:
                 raise HTTPException(status_code=400, detail="An attempt to write off more than exist")
             except SQLAlchemyError as e:
