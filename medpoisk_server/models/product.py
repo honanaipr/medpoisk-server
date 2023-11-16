@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID, BigInteger
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped
 
 from ..database import Base
 import uuid
@@ -13,3 +13,4 @@ class Product(Base):
     min_amount = Column(Integer)
     barcode = Column(BigInteger)
     positions = relationship("Position", back_populates='product')
+    picture_url: Mapped[str | None]

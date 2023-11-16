@@ -36,5 +36,9 @@ async def index(page: str|None=None):
     return FileResponse("../medpoisk-client/dist/index.html")
 
 app.mount(
+    "/pictures", StaticFiles(directory="../pictures", html=True), name="static" # WARNING .. not .
+)
+
+app.mount(
     "/", StaticFiles(directory="../medpoisk-client/dist", html=True), name="static"
 )

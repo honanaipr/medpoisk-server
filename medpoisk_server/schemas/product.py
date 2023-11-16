@@ -16,6 +16,7 @@ class ProductPublick(ProductBase):
     id: UUID
     amount: int
     places: list[Place]
+    picture_url: str | None
 
 class Product(ProductBase):
     id: UUID

@@ -39,3 +39,9 @@ def create_product(db: Session, product: schemas.ProductCreate):
     db.flush()
     db.refresh(db_product)
     return db_product
+
+def set_product_picture_url(db: Session, id: UUID, url: str):
+    stmt = select(models.Product).where(models.Product.id == id)
+    db_product = db.scalar(stmt)
+    db_product.picture_url = url
+    
