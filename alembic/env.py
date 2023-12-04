@@ -26,8 +26,8 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-from medpoisk_server.database import SQLALCHEMY_DATABASE_URL
-config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
+from medpoisk_server.config import config as app_config
+config.set_main_option("sqlalchemy.url", app_config.sqlalchemy_db_url)
 
 
 def run_migrations_offline() -> None:

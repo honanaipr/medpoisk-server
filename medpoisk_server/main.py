@@ -4,6 +4,7 @@ from .routers import doctors, pictures, products, rooms, places, positions
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from .config import config
 
 app = FastAPI()
 
@@ -37,7 +38,7 @@ async def index(page: str|None=None):
     return FileResponse("../medpoisk-client/dist/index.html")
 
 app.mount(
-    "/pictures", StaticFiles(directory="../pictures", html=True), name="static"
+    "/pictures", StaticFiles(directory=config.pictures_dir, html=True), name="static"
 )
 
 app.mount(
