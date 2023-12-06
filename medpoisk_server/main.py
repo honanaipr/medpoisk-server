@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from .config import config
+from pathlib import Path
 
 app = FastAPI()
 
@@ -35,12 +36,12 @@ v1.include_router(pictures.router)
 @app.get("/basket")
 @app.get("/profile")
 async def index(page: str|None=None):
-    return FileResponse("../medpoisk-client/dist/index.html")
+    return FileResponse(Path(config.static_path)/"index.html")
 
 app.mount(
     "/pictures", StaticFiles(directory=config.pictures_dir, html=False), name="pictures"
 )
 
 app.mount(
-    "/", StaticFiles(directory="../medpoisk-client/dist", html=True), name="static"
+    "/", StaticFiles(directory=config.static_path, html=True), name="static"
 )
