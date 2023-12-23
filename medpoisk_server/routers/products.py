@@ -16,23 +16,28 @@ router = APIRouter(
 
 from .. import schemas
 
+
 @router.get("/", response_model=list[ProductPublick])
-async def read_detailed_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+async def read_detailed_products(
+    skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
+):
     return crud.get_publick_products(db, skip=skip, limit=limit)
+
 
 @router.put("/", response_model=Product)
 async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
     try:
-        db_product = crud.create_product(db, product) 
+        db_product = crud.create_product(db, product)
     except IntegrityError as e:
-        raise HTTPException(status_code=400, detail=f"Product barcode must be unique!") from e
+        raise HTTPException(
+            status_code=400, detail=f"Product barcode must be unique!"
+        ) from e
     db.commit()
     return db_product
+
 
 @router.delete("/{id}")
 async def read_detailed_products(id: uuid.UUID, db: Session = Depends(get_db)) -> bool:
     crud.delete_products(db, id)
     db.commit()
     return True
-
-

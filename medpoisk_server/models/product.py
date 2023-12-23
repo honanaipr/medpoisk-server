@@ -5,6 +5,7 @@ from ..database import Base
 import uuid
 from .utils import generate_uuid
 
+
 class Product(Base):
     __tablename__ = "products"
 
@@ -12,5 +13,5 @@ class Product(Base):
     title = Column(String)
     min_amount = Column(Integer)
     barcode = Column(BigInteger)
-    positions = relationship("Position", back_populates='product')
+    positions = relationship("Position", back_populates="product")
     picture_url: Mapped[str | None]

@@ -4,6 +4,7 @@ from ..database import Base
 import uuid
 from .utils import generate_uuid
 
+
 class Doctor(Base):
     __tablename__ = "doctors"
 

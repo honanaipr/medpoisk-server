@@ -3,9 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import config
 
-engine = create_engine(
-    config.sqlalchemy_db_url, echo=True
-)
+engine = create_engine(config.sqlalchemy_db_url, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

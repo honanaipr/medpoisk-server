@@ -12,15 +12,19 @@ router = APIRouter(
     tags=["rooms"],
 )
 
+
 @router.get("/", response_model=list[Room])
 async def get_all_rooms(db: Session = Depends(get_db)):
     return crud.get_rooms(db)
+
 
 @router.put("/", response_model=Room)
 async def add_new_room(room: RoomCreate, db: Session = Depends(get_db)):
     try:
         db_room = crud.create_room(db, room)
     except IntegrityError as e:
-        raise HTTPException(status_code=400, detail=f"Room number {room.number} already exist!") from e
+        raise HTTPException(
+            status_code=400, detail=f"Room number {room.number} already exist!"
+        ) from e
     db.commit()
     return db_room

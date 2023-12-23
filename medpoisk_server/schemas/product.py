@@ -9,14 +9,17 @@ class ProductBase(BaseModel):
     min_amount: int
     barcode: int
 
+
 class ProductCreate(ProductBase):
     pass
+
 
 class ProductPublick(ProductBase):
     id: UUID
     amount: int
     places: list[Place]
     picture_url: str | None
+
 
 class Product(ProductBase):
     id: UUID

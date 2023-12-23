@@ -10,17 +10,20 @@ class PositionBase(BaseModel):
     amount: int
     place: Place
 
+
 class PositionCreate(PositionBase):
-    product: ProductCreate|None = Field(default=None)
-    product_id: UUID|None = Field(default=None)
+    product: ProductCreate | None = Field(default=None)
+    product_id: UUID | None = Field(default=None)
     amount: int
-    place: PlaceCreate|None = Field(default=None)
-    place_id: UUID|None = Field(default=None)
+    place: PlaceCreate | None = Field(default=None)
+    place_id: UUID | None = Field(default=None)
+
 
 class PositionUpdate(BaseModel):
     product_id: UUID = Field(default=None)
     amount: int
     place_id: UUID = Field(default=None)
+
 
 class Position(PositionBase):
     id: UUID

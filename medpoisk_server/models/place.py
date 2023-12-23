@@ -5,6 +5,7 @@ from ..database import Base
 import uuid
 from .utils import generate_uuid
 
+
 class Place(Base):
     __tablename__ = "places"
 

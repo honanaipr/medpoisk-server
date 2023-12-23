@@ -9,19 +9,21 @@ from typing import Annotated
 from ..config import config
 from urllib.parse import urljoin
 import os
+
 router = APIRouter(
     prefix="/pictures",
     tags=["pictures"],
 )
+
 
 @router.post("/{id}")
 async def create_file(id: UUID, file: UploadFile, db: Session = Depends(get_db)) -> str:
     if not file.filename:
         return "filename not specified"
     file_name = f"{id}.{file.filename.split('.')[-1]}"
-    file_path = f'{config.pictures_dir}/{file_name}'
+    file_path = f"{config.pictures_dir}/{file_name}"
     try:
-        with open(file_path, 'wb') as f:
+        with open(file_path, "wb") as f:
             content = await file.read()
             f.write(content)
         crud.set_product_picture_url(db, id, urljoin(f"/pictures/", file_name))

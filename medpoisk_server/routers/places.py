@@ -5,13 +5,17 @@ from sqlalchemy.orm import Session
 from .. import crud
 from sqlalchemy.exc import IntegrityError, NoResultFound
 import uuid
+
 router = APIRouter(
     prefix="/places",
     tags=["places"],
 )
 
+
 @router.get("/", response_model=list[Place])
-async def get_all_places(product_id:uuid.UUID|None=None, db: Session = Depends(get_db)):
+async def get_all_places(
+    product_id: uuid.UUID | None = None, db: Session = Depends(get_db)
+):
     return crud.get_places(db, product_id)
 
 
@@ -20,6 +24,8 @@ async def add_new_place(place: PlaceCreate, db: Session = Depends(get_db)):
     try:
         db_place = crud.create_place(db, place)
     except IntegrityError as e:
-        raise HTTPException(status_code=400, detail=f"Place {place.title} already exist!") from e
+        raise HTTPException(
+            status_code=400, detail=f"Place {place.title} already exist!"
+        ) from e
     db.commit()
     return db_place
