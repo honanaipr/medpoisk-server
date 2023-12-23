@@ -44,7 +44,7 @@ async def get_token(
     user = get_user_by_username(form_data.username, session)
     if not user:
         raise unauthorized_exc
-    if not user.password_hash == form_data.password:
+    if not security.validate_password(form_data.password, user.password_hash):
         raise unauthorized_exc
     access_token_data = security.TokenData(
         username=user.username, exp=datetime.utcnow() + timedelta(seconds=10)

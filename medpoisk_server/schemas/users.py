@@ -15,4 +15,4 @@ class UserPublicDetailed(UserPublic):
 
 
 class UserPrivate(UserPublicDetailed):
-    password_hash: str
+    password_hash: bytes

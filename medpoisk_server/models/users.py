@@ -23,7 +23,7 @@ class User(Base):
     middle_name: Mapped[str | None] = mapped_column(postgresql.TEXT)
     last_name: Mapped[str] = mapped_column(postgresql.TEXT)
     email: Mapped[str | None] = mapped_column(postgresql.TEXT)
-    password_hash: Mapped[str] = mapped_column(postgresql.TEXT)
+    password_hash: Mapped[str] = mapped_column(postgresql.BYTEA)
 
     def __repr__(self):
         return f"User(id={self.id}, login={self.login})"
