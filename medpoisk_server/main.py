@@ -11,7 +11,7 @@ from pathlib import Path
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173", #vite dev server on port 5173
+    "http://localhost:5173",  # vite dev server on port 5173
 ]
 
 app.add_middleware(
@@ -32,18 +32,3 @@ v1.include_router(rooms.router)
 v1.include_router(doctors.router)
 v1.include_router(places.router)
 v1.include_router(pictures.router)
-
-@app.get("/")
-@app.get("/transit")
-@app.get("/basket")
-@app.get("/profile")
-async def index(page: str|None=None):
-    return FileResponse(Path(config.static_path)/"index.html")
-
-app.mount(
-    "/pictures", StaticFiles(directory=config.pictures_dir, html=False), name="pictures"
-)
-
-app.mount(
-    "/", StaticFiles(directory=config.static_path, html=True), name="static"
-)
