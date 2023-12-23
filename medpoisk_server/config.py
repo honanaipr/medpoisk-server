@@ -16,7 +16,6 @@ class Settings(BaseSettings):
     sqlalchemy_db_url: str = Field(
         default="postgresql://postgres:password@localhost/medpoisk"
     )
-    static_path: str = Field(default="static")
     port: int = Field(default=8000)
     jwt_settings: JWTSettings = JWTSettings()
 
