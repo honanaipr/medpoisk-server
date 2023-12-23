@@ -10,7 +10,7 @@ from . import models
 from .crud import get_user_by_username
 import jwt
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
 def get_db():
