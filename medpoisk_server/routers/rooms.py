@@ -5,7 +5,8 @@ from .. import crud
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, NoResultFound
-
+from typing import Annotated
+from .. import schemas, dependencies
 
 router = APIRouter(
     prefix="/rooms",
@@ -14,8 +15,11 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[Room])
-async def get_all_rooms(db: Session = Depends(get_db)):
-    return crud.get_rooms(db)
+async def get_all_rooms(
+    db: Annotated[Session, Depends(get_db)],
+    user: Annotated[schemas.UserPrivate, Depends(dependencies.get_auntificated_user)],
+):
+    return crud.get_rooms(db, user)
 
 
 @router.put("/", response_model=Room)
