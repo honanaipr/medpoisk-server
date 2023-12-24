@@ -8,15 +8,35 @@ VALUES
 ('roman_smirnov',  'Роман', 'Евгениевич', 'Смирнов', 'roman_smirnov@medpoisk.ru', bytea '\x243262243132242e652e3249505131784c56414f2f6c74386b38385a2e6771675a557847554d552e414b78516d484b704a4d594b2f34396c4f534d2e');
 
 DELETE FROM divisions;
-INSERT INTO divisions (title, address, super_division)
+INSERT INTO divisions (title, address, super_division_id)
 VALUES
 ('Главный офис', 'ул. Академика Комарова, 14А', NULL);
+INSERT INTO divisions (title, address, super_division_id)
+VALUES
+('Филиал №1', 'Новофилёвский пр., 9', (SELECT id FROM divisions WHERE title='Главный офис')),
+('Филиал №2', 'пер. Докучаев, 13', (SELECT id FROM divisions WHERE title='Главный офис'));
+INSERT INTO divisions (title, address, super_division_id)
+VALUES
+('Субфилиал №1', 'пер. Докучаев, 13', (SELECT id FROM divisions WHERE title='Филиал №1'));
 
 DELETE FROM privilages;
 INSERT INTO privilages (user_id, division_id, role_name)
 VALUES
 ((SELECT id FROM users WHERE username = 'ivanov92'), (SELECT id FROM divisions WHERE title = 'Главный офис'), 'director'),
-((SELECT id FROM users WHERE username = 'petrovna_rus'), (SELECT id FROM divisions WHERE title = 'Главный офис'), 'manager'),
-((SELECT id FROM users WHERE username = 'sergei_1985'), (SELECT id FROM divisions WHERE title = 'Главный офис'), 'manager'),
-((SELECT id FROM users WHERE username = 'anna_kovaleva'), (SELECT id FROM divisions WHERE title = 'Главный офис'), 'doctor'),
-((SELECT id FROM users WHERE username = 'roman_smirnov'), (SELECT id FROM divisions WHERE title = 'Главный офис'), 'doctor');
+((SELECT id FROM users WHERE username = 'petrovna_rus'), (SELECT id FROM divisions WHERE title = 'Филиал №1'), 'manager'),
+((SELECT id FROM users WHERE username = 'sergei_1985'), (SELECT id FROM divisions WHERE title = 'Филиал №2'), 'manager'),
+((SELECT id FROM users WHERE username = 'anna_kovaleva'), (SELECT id FROM divisions WHERE title = 'Филиал №1'), 'doctor'),
+((SELECT id FROM users WHERE username = 'roman_smirnov'), (SELECT id FROM divisions WHERE title = 'Филиал №2'), 'doctor');
+
+DELETE FROM rooms;
+INSERT INTO rooms (title, division_id)
+VALUES
+('Комната №1', (SELECT id FROM divisions WHERE title = 'Главный офис')),
+('Комната №2', (SELECT id FROM divisions WHERE title = 'Главный офис')),
+('Комната №3', (SELECT id FROM divisions WHERE title = 'Главный офис')),
+('Кабинет №1', (SELECT id FROM divisions WHERE title = 'Филиал №1')),
+('Кабинет №2', (SELECT id FROM divisions WHERE title = 'Филиал №1')),
+('Кабинет №1', (SELECT id FROM divisions WHERE title = 'Филиал №2')),
+('Кабинет №2', (SELECT id FROM divisions WHERE title = 'Филиал №2')),
+('Кабинет №1', (SELECT id FROM divisions WHERE title = 'Субфилиал №1')),
+('Кабинет №2', (SELECT id FROM divisions WHERE title = 'Субфилиал №1'));
