@@ -26,6 +26,7 @@ def upgrade() -> None:
         existing_type=sa.TEXT(),
         type_=postgresql.BYTEA(),
         existing_nullable=False,
+        postgresql_using="password_hash::bytea",
     )
     # ### end Alembic commands ###
 
