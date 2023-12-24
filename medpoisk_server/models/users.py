@@ -10,7 +10,7 @@ privilages_table = Table(
     Base.metadata,
     Column("user_id", ForeignKey("users.id")),
     Column("division_id", ForeignKey("divisions.id")),
-    Column("role_id", Role),
+    Column("role_name", Role),
 )
 
 
