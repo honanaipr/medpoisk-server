@@ -1,17 +1,17 @@
 from sqlalchemy import Column, ForeignKey, Table
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy.dialects import postgresql
 from .roles import Role
 from ..database import Base
+from typing import TYPE_CHECKING
+from .. import schemas
 
-
-privilages_table = Table(
-    "privilages",
-    Base.metadata,
-    Column("user_id", ForeignKey("users.id")),
-    Column("division_id", ForeignKey("divisions.id")),
-    Column("role_name", Role),
-)
+if TYPE_CHECKING:
+    from .divisions import Division
+    from .privilages import Privilage
+else:
+    Division = "Division"
+    Privilage = "Privilage"
 
 
 class User(Base):
@@ -25,5 +25,7 @@ class User(Base):
     email: Mapped[str | None] = mapped_column(postgresql.TEXT)
     password_hash: Mapped[str] = mapped_column(postgresql.BYTEA)
 
+    privilages: Mapped[list[Privilage]] = relationship(back_populates="user")
+
     def __repr__(self):
-        return f"User(id={self.id}, login={self.login})"
+        return f"User(id={self.id}, login={self.username})"
