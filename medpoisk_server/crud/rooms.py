@@ -1,9 +1,27 @@
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from .. import models, schemas
+from typing import Iterable
+from sqlalchemy.orm import aliased
 
 
-def get_rooms(db: Session, skip: int = 0, limit: int = 100) -> list[models.Room]:
-    return db.query(models.Room).offset(skip).limit(limit).all()
+def flatten_divisions(S):
+    if not S:
+        return S
+    return S[:1] + flatten_divisions(S[0].sub_divisions) + flatten_divisions(S[1:])
+
+
+def get_rooms(db: Session, user: schemas.UserPrivate) -> Iterable[models.Room]:
+    db_user = db.scalars(
+        select(models.User).where(models.User.username == user.username)
+    ).one()
+    db_privilages = set([privilage for privilage in db_user.privilages])
+    db_divisions = [privilage.division for privilage in db_privilages]
+    db_divisions = flatten_divisions(db_divisions)
+    db_rooms = set()
+    for division in db_divisions:
+        db_rooms.update(division.rooms)
+    return db_rooms
 
 
 def get_room(db: Session, room_number: int) -> models.Room:
