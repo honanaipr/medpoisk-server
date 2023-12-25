@@ -4,7 +4,6 @@ from sqlalchemy import select
 from .. import exceptions
 from typing import Iterable
 import uuid
-from .product import get_product_amount
 
 
 def get_positions(
@@ -65,7 +64,7 @@ def update_position(db: Session, position: schemas.PositionUpdate):
     else:
         db_position.amount += position.amount
     db.flush()
-    result_amount = get_product_amount(db, db_position.product.id)
+    # result_amount = get_product_amount(db, db_position.product.id)
     if db_position in db:
         db.refresh(db_position)
         return db_position

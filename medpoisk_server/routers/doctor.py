@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from ..schemas import Doctor, Doctor, DoctorCreate
+from ..schemas import Doctor, DoctorCreate
 from .. import crud
 from ..dependencies import get_db
 from sqlalchemy.orm import Session

@@ -9,8 +9,6 @@ router = APIRouter(
     # responses={404: {"description": "Not found"}},
 )
 
-from .. import schemas
-
 
 @router.get("/me", response_model=schemas.EmployeePublicDetailed)
 async def get_profile_data(
