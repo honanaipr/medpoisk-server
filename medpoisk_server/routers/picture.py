@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, UploadFile
 from ..schemas import Doctor, Doctor, DoctorCreate
 from uuid import UUID
 from .. import crud

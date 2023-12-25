@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Response, Request, Cookie
+from fastapi import APIRouter, Depends, status, Response, Request, Cookie
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from .. import security
@@ -9,25 +9,9 @@ from ..models.employee import Employee
 from .. import schemas
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
+from .. import http_exceptions
 
 router = APIRouter(prefix="/auth", tags=["auth"])
-
-unauthorized_exc = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="User not authorized",
-    headers={"WWW-Authenticate": "Bearer"},
-)
-
-
-@router.get("/profile", response_model=schemas.UserPublicDetailed)
-async def send_profile_data(
-    user: Annotated[User | None, Depends(get_auntificated_user)]
-):
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        )
-    return user
 
 
 class Token(BaseModel):
@@ -43,9 +27,9 @@ async def get_token(
 ):
     employee = get_employee_by_username(form_data.username, session)
     if not employee:
-        raise unauthorized_exc
+        raise http_exceptions.UnauthorizedException
     if not security.validate_password(form_data.password, employee.password_hash):
-        raise unauthorized_exc
+        raise http_exceptions.UnauthorizedException
     access_token_data = security.TokenData(
         username=employee.username, exp=datetime.utcnow() + timedelta(seconds=10)
     )
@@ -65,7 +49,7 @@ async def refresh_token(
     refresh_token: Annotated[str | None, Cookie(alias="refreshToken")] = None,
 ):
     if not refresh_token:
-        raise unauthorized_exc
+        raise http_exceptions.UnauthorizedException
     token_data = security.jwt_decode(refresh_token)
     access_token_data = security.TokenData(
         username=token_data.username, exp=datetime.utcnow() + timedelta(seconds=30)
