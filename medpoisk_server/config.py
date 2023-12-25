@@ -1,6 +1,7 @@
-from pydantic_settings import BaseSettings
-from pydantic import Field, BaseModel
 from pathlib import Path
+
+from pydantic import BaseModel, Field
+from pydantic_settings import BaseSettings
 
 BASE_PATH = Path(__file__).parent.parent
 

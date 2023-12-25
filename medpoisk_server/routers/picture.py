@@ -1,11 +1,13 @@
-from fastapi import APIRouter, Depends, UploadFile
-from uuid import UUID
-from .. import crud
-from ..dependencies import get_db
-from sqlalchemy.orm import Session
-from ..config import config
-from urllib.parse import urljoin
 import os
+from urllib.parse import urljoin
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, UploadFile
+from sqlalchemy.orm import Session
+
+from .. import crud
+from ..config import config
+from ..dependencies import get_db
 
 router = APIRouter(
     prefix="/pictures",

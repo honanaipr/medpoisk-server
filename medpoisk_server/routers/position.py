@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
-from ..crud import get_positions, create_position, update_position
-from .. import schemas
-from ..dependencies import get_db
-from sqlalchemy.orm import Session
-from .. import exceptions
-from sqlalchemy.exc import SQLAlchemyError
 import uuid
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
+
+from .. import exceptions, schemas
+from ..crud import create_position, get_positions, update_position
+from ..dependencies import get_db
 
 router = APIRouter(
     prefix="/position",

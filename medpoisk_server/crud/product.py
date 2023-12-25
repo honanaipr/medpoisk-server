@@ -1,7 +1,9 @@
-from sqlalchemy.orm import Session
-from sqlalchemy import func, select
-from sqlalchemy import UUID as db_UUID
 from uuid import UUID
+
+from sqlalchemy import UUID as db_UUID
+from sqlalchemy import func, select
+from sqlalchemy.orm import Session
+
 from .. import models, schemas
 
 

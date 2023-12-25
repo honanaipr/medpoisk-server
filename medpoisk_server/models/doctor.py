@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, UUID
+from sqlalchemy import UUID, Column, String
 
 from ..database import Base
 from .utils import generate_uuid

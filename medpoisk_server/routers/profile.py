@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends
-from .. import schemas, dependencies
 from typing import Annotated
+
+from fastapi import APIRouter, Depends
+
+from .. import dependencies, schemas
 
 router = APIRouter(
     prefix="/profile",

@@ -1,9 +1,10 @@
-import jwt
-import bcrypt
-from .config import config
-
-from pydantic import BaseModel, Field
 from datetime import datetime, timedelta
+
+import bcrypt
+import jwt
+from pydantic import BaseModel, Field
+
+from .config import config
 
 
 class TokenData(BaseModel):

@@ -1,7 +1,7 @@
-from sqlalchemy.orm import Session
-from .. import schemas
-from .. import models
 from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from .. import models, schemas
 
 
 def get_employee_by_username(

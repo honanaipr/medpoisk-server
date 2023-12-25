@@ -1,12 +1,14 @@
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-from .role import Role
-from ..database import Base
 from typing import TYPE_CHECKING
 
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from ..database import Base
+from .role import Role
+
 if TYPE_CHECKING:
-    from .employee import Employee
     from .division import Division
+    from .employee import Employee
 else:
     Employee = "Employee"
     Division = "Division"

@@ -1,9 +1,11 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects import postgresql
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-from .privilage import Privilage
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from ..database import Base
-from typing import TYPE_CHECKING
+from .privilage import Privilage
 
 # from .. import schemas
 if TYPE_CHECKING:

@@ -1,12 +1,13 @@
+import uuid
+
+import sqlalchemy as sa
 from sqlalchemy import (
     ForeignKey,
 )
-from sqlalchemy.orm import relationship, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
-import uuid
 from .utils import generate_uuid
-import sqlalchemy as sa
 
 
 class Position(Base):

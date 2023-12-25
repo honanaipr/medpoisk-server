@@ -1,9 +1,10 @@
-from sqlalchemy.orm import Session
-from .. import models, schemas
-from sqlalchemy import select
-from .. import exceptions
-from typing import Iterable
 import uuid
+from typing import Iterable
+
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from .. import exceptions, models, schemas
 
 
 def get_positions(

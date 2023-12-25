@@ -1,8 +1,10 @@
-from sqlalchemy.orm import Session
-from uuid import UUID
-from .. import models, schemas
-from sqlalchemy import select
 from typing import Iterable
+from uuid import UUID
+
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from .. import models, schemas
 
 
 def get_places(

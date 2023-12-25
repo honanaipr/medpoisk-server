@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
-from ..schemas import Room, RoomCreate
-from .. import crud
-from ..dependencies import get_db
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
 from typing import Annotated
-from .. import schemas, dependencies
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
+from .. import crud, dependencies, schemas
+from ..dependencies import get_db
+from ..schemas import Room, RoomCreate
 
 router = APIRouter(
     prefix="/room",

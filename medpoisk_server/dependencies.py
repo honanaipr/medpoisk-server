@@ -1,13 +1,13 @@
-from .database import SessionLocal
-from sqlalchemy.orm import Session
-from fastapi import Depends
 from typing import Annotated
-from fastapi.security import OAuth2PasswordBearer
-from . import security
-from . import schemas
-from .crud import get_employee_by_username
+
 import jwt
-from . import http_exceptions
+from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.orm import Session
+
+from . import http_exceptions, schemas, security
+from .crud import get_employee_by_username
+from .database import SessionLocal
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 

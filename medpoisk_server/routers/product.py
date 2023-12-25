@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
-from .. import crud
-from ..schemas import ProductCreate, Product, ProductPublick
-from ..dependencies import get_db
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
 import uuid
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
+from .. import crud
+from ..dependencies import get_db
+from ..schemas import Product, ProductCreate, ProductPublick
 
 router = APIRouter(
     prefix="/product",

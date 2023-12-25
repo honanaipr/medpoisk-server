@@ -1,7 +1,9 @@
+from typing import Iterable
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+
 from .. import models, schemas
-from typing import Iterable
 
 
 def flatten_divisions(S):

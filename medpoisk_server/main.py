@@ -1,8 +1,7 @@
 from fastapi import FastAPI
-
-# from .internal import admin
-from .routers import doctor, picture, places, position, product, auth, profile, room
 from fastapi.middleware.cors import CORSMiddleware
+
+from .routers import auth, doctor, picture, places, position, product, profile, room
 
 app = FastAPI()
 

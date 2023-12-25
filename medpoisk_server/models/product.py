@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, UUID, BigInteger
-from sqlalchemy.orm import relationship, Mapped
+from sqlalchemy import UUID, BigInteger, Column, Integer, String
+from sqlalchemy.orm import Mapped, relationship
 
 from ..database import Base
 from .utils import generate_uuid

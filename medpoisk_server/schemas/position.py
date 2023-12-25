@@ -1,7 +1,9 @@
-from pydantic import BaseModel, ConfigDict, Field
 from uuid import UUID
-from .product import Product, ProductCreate
+
+from pydantic import BaseModel, ConfigDict, Field
+
 from .place import Place, PlaceCreate
+from .product import Product, ProductCreate
 
 
 class PositionBase(BaseModel):

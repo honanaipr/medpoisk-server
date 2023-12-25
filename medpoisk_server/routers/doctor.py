@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
-from ..schemas import Doctor, DoctorCreate
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
 from .. import crud
 from ..dependencies import get_db
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
+from ..schemas import Doctor, DoctorCreate
 
 router = APIRouter(
     prefix="/doctor",
