@@ -27,6 +27,7 @@ sqlalchemy-repr = "^0.1.0"
 black = "^23.10.1"
 pytest = "^7.4.2"
 mypy = "^1.8.0"
+ruff = "^0.1.9"
 
 [build-system]
 requires = ["poetry-core"]
