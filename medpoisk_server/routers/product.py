@@ -15,9 +15,7 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[ProductPublick])
-async def read_detailed_products(
-    skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
-):
+async def get_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return crud.get_publick_products(db, skip=skip, limit=limit)
 
 
@@ -34,7 +32,7 @@ async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
 
 
 @router.delete("/{id}")
-async def read_detailed_products(id: uuid.UUID, db: Session = Depends(get_db)) -> bool:
+async def get_detailed_product(id: uuid.UUID, db: Session = Depends(get_db)) -> bool:
     crud.delete_products(db, id)
     db.commit()
     return True
