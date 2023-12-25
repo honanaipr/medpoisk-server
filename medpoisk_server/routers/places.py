@@ -7,8 +7,8 @@ from sqlalchemy.exc import IntegrityError, NoResultFound
 import uuid
 
 router = APIRouter(
-    prefix="/places",
-    tags=["places"],
+    prefix="/place",
+    tags=["place"],
 )
 
 

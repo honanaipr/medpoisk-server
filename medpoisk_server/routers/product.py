@@ -8,8 +8,8 @@ from sqlalchemy.exc import IntegrityError, NoResultFound
 import uuid
 
 router = APIRouter(
-    prefix="/products",
-    tags=["products"],
+    prefix="/product",
+    tags=["product"],
     # dependencies=[Depends(get_token_header)],
     # responses={404: {"description": "Not found"}},
 )

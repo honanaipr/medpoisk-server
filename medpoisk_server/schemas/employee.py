@@ -1,18 +1,17 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class UserPublic(BaseModel):
+class EmployeePublic(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     username: str
     email: str | None
 
-    model_config = ConfigDict(from_attributes=True)
 
-
-class UserPublicDetailed(UserPublic):
+class EmployeePublicDetailed(EmployeePublic):
     first_name: str | None
     middle_name: str | None
     last_name: str
 
 
-class UserPrivate(UserPublicDetailed):
+class EmployeePrivate(EmployeePublicDetailed):
     password_hash: bytes

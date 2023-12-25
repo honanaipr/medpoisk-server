@@ -7,7 +7,7 @@ from .utils import generate_uuid
 
 
 class Product(Base):
-    __tablename__ = "products"
+    __tablename__ = "product"
 
     id = Column(UUID, primary_key=True, default=generate_uuid)
     title = Column(String)

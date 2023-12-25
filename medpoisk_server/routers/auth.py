@@ -3,9 +3,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from .. import security
 from pydantic import BaseModel, Field
-from ..dependencies import get_auntificated_user, get_db
-from ..crud import get_user_by_username
-from ..models.users import User
+from ..dependencies import get_auntificated_employee, get_db
+from ..crud import get_employee_by_username
+from ..models.employee import Employee
 from .. import schemas
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
@@ -41,16 +41,16 @@ async def get_token(
     session: Annotated[Session, Depends(get_db)],
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ):
-    user = get_user_by_username(form_data.username, session)
-    if not user:
+    employee = get_employee_by_username(form_data.username, session)
+    if not employee:
         raise unauthorized_exc
-    if not security.validate_password(form_data.password, user.password_hash):
+    if not security.validate_password(form_data.password, employee.password_hash):
         raise unauthorized_exc
     access_token_data = security.TokenData(
-        username=user.username, exp=datetime.utcnow() + timedelta(seconds=10)
+        username=employee.username, exp=datetime.utcnow() + timedelta(seconds=10)
     )
     refresh_token_data = security.TokenData(
-        username=user.username, exp=datetime.utcnow() + timedelta(minutes=5)
+        username=employee.username, exp=datetime.utcnow() + timedelta(minutes=5)
     )
     access_token = security.jwt_encode(payload=access_token_data.model_dump())
     refresh_token = security.jwt_encode(payload=refresh_token_data.model_dump())

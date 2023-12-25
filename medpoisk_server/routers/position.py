@@ -8,8 +8,8 @@ from sqlalchemy.exc import SQLAlchemyError
 import uuid
 
 router = APIRouter(
-    prefix="/positions",
-    tags=["positions"],
+    prefix="/position",
+    tags=["position"],
 )
 
 
@@ -42,11 +42,11 @@ async def add_positions(
 
 
 @router.patch("/", response_model=list[schemas.Position] | None)
-@router.patch("/{rooms_id}/", response_model=list[schemas.Position] | None)
-@router.patch("/{rooms_id}/{doctor_id}", response_model=list[schemas.Position] | None)
+@router.patch("/{room_id}/", response_model=list[schemas.Position] | None)
+@router.patch("/{room_id}/{doctor_id}", response_model=list[schemas.Position] | None)
 async def write_off_positions(
     position_updates: list[schemas.PositionUpdate],
-    rooms_id: uuid.UUID = None,
+    room_id: uuid.UUID = None,
     doctor_id: uuid.UUID | None = None,
     db: Session = Depends(get_db),
 ):

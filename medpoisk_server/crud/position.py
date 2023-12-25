@@ -4,7 +4,7 @@ from sqlalchemy import select
 from .. import exceptions
 from typing import Iterable
 import uuid
-from .products import get_product_amount
+from .product import get_product_amount
 
 
 def get_positions(

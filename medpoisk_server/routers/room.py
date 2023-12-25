@@ -9,15 +9,15 @@ from typing import Annotated
 from .. import schemas, dependencies
 
 router = APIRouter(
-    prefix="/rooms",
-    tags=["rooms"],
+    prefix="/room",
+    tags=["room"],
 )
 
 
 @router.get("/", response_model=list[Room])
 async def get_all_rooms(
     db: Annotated[Session, Depends(get_db)],
-    user: Annotated[schemas.UserPrivate, Depends(dependencies.get_auntificated_user)],
+    user: Annotated[schemas.EmployeePrivate, Depends(dependencies.get_auntificated_employee)],
 ):
     return crud.get_rooms(db, user)
 
@@ -28,7 +28,7 @@ async def add_new_room(room: RoomCreate, db: Session = Depends(get_db)):
         db_room = crud.create_room(db, room)
     except IntegrityError as e:
         raise HTTPException(
-            status_code=400, detail=f"Room number {room.number} already exist!"
+            status_code=400, detail=f"Room title {room.title} already exist!"
         ) from e
     db.commit()
     return db_room

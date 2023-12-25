@@ -7,7 +7,7 @@ from .utils import generate_uuid
 
 
 class Place(Base):
-    __tablename__ = "places"
+    __tablename__ = "place"
 
     id = Column(UUID, primary_key=True, default=generate_uuid)
     title = Column(String, unique=True)

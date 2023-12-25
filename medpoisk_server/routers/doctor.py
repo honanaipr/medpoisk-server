@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, NoResultFound
 
 router = APIRouter(
-    prefix="/doctors",
-    tags=["doctors"],
+    prefix="/doctor",
+    tags=["doctor"],
 )
 
 

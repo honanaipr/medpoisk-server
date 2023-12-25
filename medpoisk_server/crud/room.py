@@ -11,11 +11,11 @@ def flatten_divisions(S):
     return S[:1] + flatten_divisions(S[0].sub_divisions) + flatten_divisions(S[1:])
 
 
-def get_rooms(db: Session, user: schemas.UserPrivate) -> Iterable[models.Room]:
-    db_user = db.scalars(
-        select(models.User).where(models.User.username == user.username)
+def get_rooms(db: Session, employee: schemas.EmployeePrivate) -> Iterable[models.Room]:
+    db_employee = db.scalars(
+        select(models.Employee).where(models.Employee.username == employee.username)
     ).one()
-    db_privilages = set([privilage for privilage in db_user.privilages])
+    db_privilages = set([privilage for privilage in db_employee.privilages])
     db_divisions = [privilage.division for privilage in db_privilages]
     db_divisions = flatten_divisions(db_divisions)
     db_rooms = set()
