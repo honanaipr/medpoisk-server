@@ -1,10 +1,8 @@
-from sqlalchemy import Column, ForeignKey, Table
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy.dialects import postgresql
 from .role import Role
 from ..database import Base
 from typing import TYPE_CHECKING
-from .. import schemas
 
 if TYPE_CHECKING:
     from .employee import Employee

@@ -1,10 +1,7 @@
-from sqlalchemy import Column, ForeignKey, Table
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy.dialects import postgresql
-from .role import Role
 from ..database import Base
 from typing import TYPE_CHECKING
-from .. import schemas
 
 if TYPE_CHECKING:
     from .division import Division
@@ -31,5 +28,5 @@ class Employee(Base):
         return self._repr(
             username=self.username,
             first_name=self.first_name,
-            middle_name=self.middle_name
+            middle_name=self.middle_name,
         )

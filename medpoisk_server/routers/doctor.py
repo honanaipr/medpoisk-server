@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from ..schemas import Doctor, Doctor, DoctorCreate
-from uuid import UUID
 from .. import crud
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError, NoResultFound
+from sqlalchemy.exc import IntegrityError
 
 router = APIRouter(
     prefix="/doctor",

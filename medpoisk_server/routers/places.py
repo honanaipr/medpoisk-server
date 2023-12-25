@@ -3,7 +3,7 @@ from ..schemas import Place, PlaceCreate
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
 from .. import crud
-from sqlalchemy.exc import IntegrityError, NoResultFound
+from sqlalchemy.exc import IntegrityError
 import uuid
 
 router = APIRouter(

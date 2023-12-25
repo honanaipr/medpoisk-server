@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from ..schemas import Room, RoomCreate
-from uuid import UUID
 from .. import crud
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError, NoResultFound
+from sqlalchemy.exc import IntegrityError
 from typing import Annotated
 from .. import schemas, dependencies
 
@@ -17,7 +16,9 @@ router = APIRouter(
 @router.get("/", response_model=list[Room])
 async def get_all_rooms(
     db: Annotated[Session, Depends(get_db)],
-    user: Annotated[schemas.EmployeePrivate, Depends(dependencies.get_auntificated_employee)],
+    user: Annotated[
+        schemas.EmployeePrivate, Depends(dependencies.get_auntificated_employee)
+    ],
 ):
     return crud.get_rooms(db, user)
 

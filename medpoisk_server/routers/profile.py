@@ -1,11 +1,5 @@
 from fastapi import APIRouter, Depends
-from .. import crud
-from ..schemas import ProductCreate, Product, ProductPublick
-from sqlalchemy import UUID
-from ..dependencies import get_db
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError, NoResultFound
-from .. import models, schemas, dependencies, http_exceptions
+from .. import schemas, dependencies
 from typing import Annotated
 
 router = APIRouter(
@@ -22,7 +16,7 @@ from .. import schemas
 async def get_profile_data(
     employee: Annotated[
         schemas.EmployeePrivate, Depends(dependencies.get_auntificated_employee)
-    ]
+    ],
 ):
     return employee
 

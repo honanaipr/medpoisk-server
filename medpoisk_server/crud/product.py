@@ -58,7 +58,7 @@ def get_publick_products(
         product = schemas.ProductPublick(
             **db_product.__dict__,
             amount=get_product_amount(db, db_product.id),
-            places=places
+            places=places,
         )
         products.append(product)
     return products

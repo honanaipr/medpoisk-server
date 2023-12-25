@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from .. import crud
 from ..schemas import ProductCreate, Product, ProductPublick
-from sqlalchemy import UUID
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError, NoResultFound
+from sqlalchemy.exc import IntegrityError
 import uuid
 
 router = APIRouter(
@@ -13,8 +12,6 @@ router = APIRouter(
     # dependencies=[Depends(get_token_header)],
     # responses={404: {"description": "Not found"}},
 )
-
-from .. import schemas
 
 
 @router.get("/", response_model=list[ProductPublick])
@@ -30,7 +27,7 @@ async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
         db_product = crud.create_product(db, product)
     except IntegrityError as e:
         raise HTTPException(
-            status_code=400, detail=f"Product barcode must be unique!"
+            status_code=400, detail="Product barcode must be unique!"
         ) from e
     db.commit()
     return db_product

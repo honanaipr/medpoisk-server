@@ -1,12 +1,10 @@
 from .database import SessionLocal
-from sqlalchemy import select
 from sqlalchemy.orm import Session
-from fastapi import Depends, status
+from fastapi import Depends
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
 from . import security
 from . import schemas
-from . import models
 from .crud import get_employee_by_username
 import jwt
 from . import http_exceptions

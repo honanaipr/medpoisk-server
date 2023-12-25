@@ -1,12 +1,10 @@
-from fastapi import APIRouter, Depends, status, Response, Request, Cookie
+from fastapi import APIRouter, Depends, Response, Cookie
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from .. import security
-from pydantic import BaseModel, Field
-from ..dependencies import get_auntificated_employee, get_db
+from pydantic import BaseModel
+from ..dependencies import get_db
 from ..crud import get_employee_by_username
-from ..models.employee import Employee
-from .. import schemas
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from .. import http_exceptions

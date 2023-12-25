@@ -1,12 +1,8 @@
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 
 # from .internal import admin
 from .routers import doctor, picture, places, position, product, auth, profile, room
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
-from .config import config
-from pathlib import Path
 
 app = FastAPI()
 

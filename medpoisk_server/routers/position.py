@@ -60,7 +60,7 @@ async def write_off_positions(
             raise HTTPException(
                 status_code=400, detail="An attempt to write off more than exist"
             )
-        except SQLAlchemyError as e:
+        except SQLAlchemyError:
             try:
                 db_position = create_position(
                     db, schemas.PositionCreate.model_validate(position_update)

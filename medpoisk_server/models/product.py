@@ -1,8 +1,7 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID, BigInteger
+from sqlalchemy import Column, Integer, String, UUID, BigInteger
 from sqlalchemy.orm import relationship, Mapped
 
 from ..database import Base
-import uuid
 from .utils import generate_uuid
 
 

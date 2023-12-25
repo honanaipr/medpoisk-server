@@ -1,7 +1,6 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID, BigInteger
+from sqlalchemy import Column, String, UUID
 
 from ..database import Base
-import uuid
 from .utils import generate_uuid
 
 
