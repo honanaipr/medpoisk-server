@@ -24,8 +24,8 @@ def get_rooms(db: Session, employee: schemas.EmployeePrivate) -> Iterable[models
     return db_rooms
 
 
-def get_room(db: Session, room_number: int) -> models.Room:
-    return db.query(models.Room).where(models.Room.number == room_number).one()
+def get_room(db: Session, room_title: int) -> models.Room:
+    return db.query(models.Room).where(models.Room.title == room_title).one()
 
 
 def create_room(db: Session, room: schemas.RoomCreate) -> models.Room:

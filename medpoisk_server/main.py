@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 
 # from .internal import admin
-from .routers import doctors, picture, places, positions, products, auth, profile, rooms
+from .routers import doctor, picture, places, position, product, auth, profile, room
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -27,10 +27,9 @@ app.mount("/api/v0", v1)
 
 v1.include_router(auth.router)
 v1.include_router(profile.router)
-v1.include_router(positions.router)
-v1.include_router(products.router)
-v1.include_router(rooms.router)
-v1.include_router(doctors.router)
+v1.include_router(position.router)
+v1.include_router(product.router)
+v1.include_router(room.router)
+v1.include_router(doctor.router)
 v1.include_router(places.router)
 v1.include_router(picture.router)
-
