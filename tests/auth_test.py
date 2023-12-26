@@ -5,6 +5,19 @@ from medpoisk_server.main import app
 client = TestClient(app)
 
 
+def get_token() -> str:
+    data = data = {
+        "grant_type": "",
+        "username": "ivanov92",
+        "password": "ivanov92",
+        "scope": "",
+        "client_id": "",
+        "client_secret": "",
+    }
+    response = client.post("/api/v0/auth/login", data=data)
+    return response.json()["access_token"]
+
+
 def test_get_token():
     data = data = {
         "grant_type": "",
