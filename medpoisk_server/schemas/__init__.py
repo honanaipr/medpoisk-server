@@ -5,3 +5,4 @@ from .position import *
 from .product import *
 from .role import *
 from .room import *
+from .token import *

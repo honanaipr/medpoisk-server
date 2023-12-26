@@ -3,20 +3,14 @@ from typing import Annotated
 
 from fastapi import APIRouter, Cookie, Depends, Response
 from fastapi.security import OAuth2PasswordRequestForm
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from .. import http_exceptions, security
+from .. import http_exceptions, schemas, security
 from ..config import config
 from ..crud import get_employee_by_username
 from ..dependencies import get_db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
 
 
 @router.post("/login")
@@ -30,12 +24,12 @@ async def get_token(
         raise http_exceptions.UnauthorizedException
     if not security.validate_password(form_data.password, employee.password_hash):
         raise http_exceptions.UnauthorizedException
-    access_token_data = security.TokenData(
+    access_token_data = schemas.TokenData(
         username=employee.username,
         exp=datetime.utcnow()
         + timedelta(minutes=config.jwt_settings.access_token_lifetime_minutes),
     )
-    refresh_token_data = security.TokenData(
+    refresh_token_data = schemas.TokenData(
         username=employee.username,
         exp=datetime.utcnow()
         + timedelta(minutes=config.jwt_settings.refresh_token_lifetime_minutes),
@@ -43,7 +37,7 @@ async def get_token(
     access_token = security.jwt_encode(payload=access_token_data.model_dump())
     refresh_token = security.jwt_encode(payload=refresh_token_data.model_dump())
     response.set_cookie("refreshToken", refresh_token, httponly=True)
-    return Token(access_token=access_token)
+    return schemas.Token(access_token=access_token)
 
 
 @router.post("/refresh")
@@ -55,12 +49,12 @@ async def refresh_token(
     if not refresh_token:
         raise http_exceptions.UnauthorizedException
     token_data = security.jwt_decode(refresh_token)
-    access_token_data = security.TokenData(
+    access_token_data = schemas.TokenData(
         username=token_data.username,
         exp=datetime.utcnow()
         + timedelta(minutes=config.jwt_settings.access_token_lifetime_minutes),
     )
-    refresh_token_data = security.TokenData(
+    refresh_token_data = schemas.TokenData(
         username=token_data.username,
         exp=datetime.utcnow()
         + timedelta(minutes=config.jwt_settings.refresh_token_lifetime_minutes),
@@ -68,4 +62,4 @@ async def refresh_token(
     access_token = security.jwt_encode(payload=access_token_data.model_dump())
     refresh_token = security.jwt_encode(payload=refresh_token_data.model_dump())
     response.set_cookie("refreshToken", refresh_token, httponly=True)
-    return Token(access_token=access_token)
+    return schemas.Token(access_token=access_token)
