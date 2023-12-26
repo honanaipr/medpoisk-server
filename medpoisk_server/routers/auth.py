@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from .. import http_exceptions, security
+from ..config import config
 from ..crud import get_employee_by_username
 from ..dependencies import get_db
 
@@ -30,10 +31,14 @@ async def get_token(
     if not security.validate_password(form_data.password, employee.password_hash):
         raise http_exceptions.UnauthorizedException
     access_token_data = security.TokenData(
-        username=employee.username, exp=datetime.utcnow() + timedelta(seconds=10)
+        username=employee.username,
+        exp=datetime.utcnow()
+        + timedelta(minutes=config.jwt_settings.access_token_lifetime_minutes),
     )
     refresh_token_data = security.TokenData(
-        username=employee.username, exp=datetime.utcnow() + timedelta(minutes=5)
+        username=employee.username,
+        exp=datetime.utcnow()
+        + timedelta(minutes=config.jwt_settings.refresh_token_lifetime_minutes),
     )
     access_token = security.jwt_encode(payload=access_token_data.model_dump())
     refresh_token = security.jwt_encode(payload=refresh_token_data.model_dump())
@@ -51,10 +56,14 @@ async def refresh_token(
         raise http_exceptions.UnauthorizedException
     token_data = security.jwt_decode(refresh_token)
     access_token_data = security.TokenData(
-        username=token_data.username, exp=datetime.utcnow() + timedelta(seconds=30)
+        username=token_data.username,
+        exp=datetime.utcnow()
+        + timedelta(minutes=config.jwt_settings.access_token_lifetime_minutes),
     )
     refresh_token_data = security.TokenData(
-        username=token_data.username, exp=datetime.utcnow() + timedelta(minutes=5)
+        username=token_data.username,
+        exp=datetime.utcnow()
+        + timedelta(minutes=config.jwt_settings.refresh_token_lifetime_minutes),
     )
     access_token = security.jwt_encode(payload=access_token_data.model_dump())
     refresh_token = security.jwt_encode(payload=refresh_token_data.model_dump())
