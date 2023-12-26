@@ -18,6 +18,6 @@ class Division(Base):
     privilages: Mapped[list[Privilage]] = relationship(back_populates="division")
     rooms: Mapped[list[Room]] = relationship(back_populates="division")
     super_division: Mapped["Division | None"] = relationship(remote_side=[id])
-    sub_division: Mapped[list["Division"]] = relationship(
+    sub_divisions: Mapped[list["Division"]] = relationship(
         back_populates="super_division"
     )
