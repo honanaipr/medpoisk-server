@@ -9,9 +9,6 @@ from .role import Role
 if TYPE_CHECKING:
     from .division import Division
     from .employee import Employee
-else:
-    Employee = "Employee"
-    Division = "Division"
 
 
 class Privilage(Base):
@@ -22,5 +19,5 @@ class Privilage(Base):
     division_id: Mapped[int] = mapped_column(ForeignKey("division.id"))
     role_name: Mapped[str] = mapped_column(Role)
 
-    employee: Mapped[Employee] = relationship(back_populates="privilages")
-    division: Mapped[Division] = relationship(back_populates="privilage")
+    employee: Mapped["Employee"] = relationship("Employee", back_populates="privilages")
+    division: Mapped["Division"] = relationship("Division", back_populates="privilages")

@@ -1,16 +1,8 @@
-from typing import TYPE_CHECKING
-
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
-
-if TYPE_CHECKING:
-    from .division import Division
-    from .privilage import Privilage
-else:
-    Division = "Division"
-    Privilage = "Privilage"
+from .privilage import Privilage
 
 
 class Employee(Base):
