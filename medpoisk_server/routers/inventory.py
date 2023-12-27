@@ -13,7 +13,7 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[schemas.InventoryItmePublick])
-async def get_all_doctors(
+async def get_all_inventory(
     db: Annotated[Session, Depends(get_db)],
     token_data: Annotated[
         schemas.TokenData, Depends(dependencies.get_verified_token_data)
