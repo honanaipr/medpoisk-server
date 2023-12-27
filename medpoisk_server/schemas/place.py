@@ -14,3 +14,9 @@ class PlaceCreate(PlaceBase):
 
 class Place(PlaceBase):
     id: UUID
+
+
+class PlaceShortPublick(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    title: str
