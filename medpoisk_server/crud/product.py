@@ -50,7 +50,7 @@ def get_product_places(db: Session, product_id: db_UUID):
 
 def get_publick_products(
     db: Session, skip: int = 0, limit: int = 100
-) -> list[schemas.Product]:
+) -> list[schemas.ProductPublick]:
     db_products = get_products(db, skip=skip, limit=limit)
     products = []
     for db_product in db_products:

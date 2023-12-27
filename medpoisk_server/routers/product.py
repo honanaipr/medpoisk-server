@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from .. import crud
 from ..dependencies import get_db
-from ..schemas import Product, ProductCreate, ProductPublick
+from ..schemas import ProductCreate, ProductPublick
 
 router = APIRouter(
     prefix="/product",
@@ -21,7 +21,7 @@ async def get_products(skip: int = 0, limit: int = 100, db: Session = Depends(ge
     return crud.get_publick_products(db, skip=skip, limit=limit)
 
 
-@router.put("/", response_model=Product)
+@router.put("/", response_model=ProductPublick)
 async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
     try:
         db_product = crud.create_product(db, product)
