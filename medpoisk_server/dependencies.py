@@ -42,3 +42,9 @@ def get_verified_token_data(
     except jwt.exceptions.ExpiredSignatureError:
         raise http_exceptions.UnauthorizedException
     return token_data
+
+
+def get_auntificated_divisions(
+    token_data: Annotated[schemas.TokenData, Depends(get_verified_token_data)],
+) -> list[schemas.DivisionPublick]:
+    return [role.division for role in token_data.roles]
