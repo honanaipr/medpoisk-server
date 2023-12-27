@@ -1,7 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import auth, doctor, picture, places, position, product, profile, room
+from .routers import (
+    auth,
+    doctor,
+    inventory,
+    picture,
+    places,
+    position,
+    product,
+    profile,
+    room,
+)
 
 app = FastAPI()
 
@@ -28,3 +38,4 @@ v1.include_router(room.router)
 v1.include_router(doctor.router)
 v1.include_router(places.router)
 v1.include_router(picture.router)
+v1.include_router(inventory.router)
