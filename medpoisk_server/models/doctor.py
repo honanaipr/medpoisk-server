@@ -1,11 +1,10 @@
-from sqlalchemy import UUID, Column, String
+from sqlalchemy import Column, Integer, String
 
 from ..database import Base
-from .utils import generate_uuid
 
 
 class Doctor(Base):
     __tablename__ = "doctor"
 
-    id = Column(UUID, primary_key=True, default=generate_uuid)
+    id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)

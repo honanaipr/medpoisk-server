@@ -20,4 +20,4 @@ class Room(Base):
         ForeignKey("division.id"), onupdate="CASCADE"
     )
 
-    division: Mapped[Division] = relationship(back_populates="rooms")
+    division: Mapped[Division] = relationship("Division", back_populates="rooms")

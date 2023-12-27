@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -5,6 +7,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from ..database import Base
 from .privilage import Privilage
 from .room import Room
+
+if TYPE_CHECKING:
+    from .place import Place
 
 
 class Division(Base):
@@ -17,6 +22,7 @@ class Division(Base):
 
     privilages: Mapped[list[Privilage]] = relationship(back_populates="division")
     rooms: Mapped[list[Room]] = relationship(back_populates="division")
+    places: Mapped[list["Place"]] = relationship("Place", back_populates="division")
     super_division: Mapped["Division | None"] = relationship(remote_side=[id])
     sub_divisions: Mapped[list["Division"]] = relationship(
         back_populates="super_division"
