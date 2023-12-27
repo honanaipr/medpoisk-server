@@ -8,15 +8,34 @@ from medpoisk_server.security import jwt_decode
 client = TestClient(app)
 
 
-def get_token() -> str:
+def get_token(role: schemas.Role = schemas.Role.director) -> str:
     data = data = {
         "grant_type": "",
-        "username": "petrovna_rus",
-        "password": "petrovna_rus",
         "scope": "",
         "client_id": "",
         "client_secret": "",
     }
+    if role == schemas.Role.manager:
+        data.update(
+            {
+                "username": "petrovna_rus",
+                "password": "petrovna_rus",
+            }
+        )
+    elif role == schemas.Role.director:
+        data.update(
+            {
+                "username": "ivanov92",
+                "password": "ivanov92",
+            }
+        )
+    elif role == schemas.Role.doctor:
+        data.update(
+            {
+                "username": "anna_kovaleva",
+                "password": "anna_kovaleva",
+            }
+        )
     response = client.post("/api/v0/auth/login", data=data)
     return response.json()["access_token"]
 
