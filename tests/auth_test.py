@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -8,6 +10,7 @@ from medpoisk_server.security import jwt_decode
 client = TestClient(app)
 
 
+@lru_cache
 def get_token(role: schemas.Role = schemas.Role.director) -> str:
     data = data = {
         "grant_type": "",
