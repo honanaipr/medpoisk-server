@@ -3,6 +3,7 @@ from .division import Division
 from .doctor import Doctor
 from .employee import Employee
 from .inventory import Inventory
+from .min_amount import MinAmount
 from .place import Place
 from .position import Position
 from .privilage import Privilage
@@ -22,4 +23,5 @@ __all__ = [
     "Product",
     "Role",
     "Room",
+    "MinAmount",
 ]

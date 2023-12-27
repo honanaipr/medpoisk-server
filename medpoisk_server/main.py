@@ -5,6 +5,7 @@ from .routers import (
     auth,
     doctor,
     inventory,
+    limit,
     picture,
     places,
     position,
@@ -39,3 +40,4 @@ v1.include_router(doctor.router)
 v1.include_router(places.router)
 v1.include_router(picture.router)
 v1.include_router(inventory.router)
+v1.include_router(limit.router)

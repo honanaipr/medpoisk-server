@@ -5,6 +5,7 @@ DELETE FROM room;
 DELETE FROM product;
 DELETE FROM place;
 DELETE FROM inventory;
+DELETE FROM minamount;
 
 INSERT INTO employee (username, first_name, middle_name, last_name, email, password_hash)
 VALUES
@@ -99,3 +100,11 @@ VALUES
 ((SELECT id FROM product WHERE title = 'Инсулин'), (SELECT id FROM place WHERE title = 'Ящик №2' AND division_id = (SELECT id FROM division WHERE title='Филиал №2')), 3),
 ((SELECT id FROM product WHERE title = 'Пропранолол'), (SELECT id FROM place WHERE title = 'Холодильник' AND division_id = (SELECT id FROM division WHERE title='Филиал №2')), 6),
 ((SELECT id FROM product WHERE title = 'Аспирин'), (SELECT id FROM place WHERE title = 'Морозильник' AND division_id = (SELECT id FROM division WHERE title='Филиал №2')), 7);
+
+
+INSERT INTO minamount (product_id, division_id, min_amount)
+VALUES
+((SELECT id FROM product WHERE title = 'Аспирин'), (SELECT id FROM division WHERE title = 'Филиал №1'), 1),
+((SELECT id FROM product WHERE title = 'Парацетамол'), (SELECT id FROM division WHERE title = 'Филиал №1'), 2),
+((SELECT id FROM product WHERE title = 'Ибупрофен'), (SELECT id FROM division WHERE title = 'Филиал №1'), 3),
+((SELECT id FROM product WHERE title = 'Амоксициллин'), (SELECT id FROM division WHERE title = 'Филиал №1'), 4);
