@@ -1,3 +1,4 @@
+from ..database import Base
 from .division import Division
 from .doctor import Doctor
 from .employee import Employee
@@ -10,6 +11,7 @@ from .role import Role
 from .room import Room
 
 __all__ = [
+    "Base",
     "Division",
     "Doctor",
     "Employee",
