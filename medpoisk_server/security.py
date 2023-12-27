@@ -31,7 +31,7 @@ def jwt_update(
     algorithm: str = config.jwt_settings.algorithm,
 ) -> str:
     decoded = jwt.decode(token.encode(), public_key, algorithms=[algorithm])
-    token_data = schemas.TokenData(username=decoded["username"])
+    token_data = schemas.TokenData(username=decoded["username"], roles=decoded.roles)
     encoded = jwt.encode(token_data.model_dump(), private_key, algorithm=algorithm)
     return encoded
 

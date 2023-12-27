@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+
+from .division import DivisionPublick
+from .role import Role
 
 
 class Token(BaseModel):
@@ -8,8 +11,15 @@ class Token(BaseModel):
     token_type: str = "bearer"
 
 
+class RoleInDivision(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    division: DivisionPublick
+    role_name: Role
+
+
 class TokenData(BaseModel):
     username: str
+    roles: list[RoleInDivision]
     exp: datetime = Field(
         default_factory=lambda: datetime.utcnow() + timedelta(minutes=100)
     )

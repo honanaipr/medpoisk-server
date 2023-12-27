@@ -32,3 +32,13 @@ def get_auntificated_employee(
     if not employee:
         raise http_exceptions.UnauthorizedException
     return employee
+
+
+def get_verified_token_data(
+    token: Annotated[str, Depends(oauth2_scheme)],
+) -> schemas.TokenData:
+    try:
+        token_data = security.jwt_decode(token)
+    except jwt.exceptions.ExpiredSignatureError:
+        raise http_exceptions.UnauthorizedException
+    return token_data
