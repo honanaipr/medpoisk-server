@@ -13,7 +13,7 @@ from ..dependencies import get_db
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/login")
+@router.post("/login", response_model=schemas.Token)
 async def get_token(
     response: Response,
     session: Annotated[Session, Depends(get_db)],
@@ -43,7 +43,7 @@ async def get_token(
     return schemas.Token(access_token=access_token)
 
 
-@router.post("/refresh")
+@router.post("/refresh", response_model=schemas.Token)
 async def refresh_token(
     response: Response,
     # session: Annotated[Session, Depends(get_db)],

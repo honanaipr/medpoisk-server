@@ -15,6 +15,7 @@ class RoleInDivision(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     division: DivisionPublick
     role_name: Role
+    inherited: bool = False
 
 
 class TokenData(BaseModel):
