@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
+from pydantic.type_adapter import TypeAdapter
 
+from medpoisk_server import schemas
 from medpoisk_server.main import app
 
 from .auth_test import get_token
@@ -14,11 +16,14 @@ def test_get_inventory():
     )
     assert response.status_code == 200
     assert response.json()
-    assert response.json()[0]
-    assert response.json()[0]["product"]
-    assert response.json()[0]["product"]["id"]
-    assert response.json()[0]["product"]["title"]
-    assert response.json()[0]["place"]
-    assert response.json()[0]["place"]["id"]
-    assert response.json()[0]["place"]["title"]
-    assert response.json()[0]["amount"]
+    inventory = TypeAdapter(list[schemas.InventoryItmePublick]).validate_python(
+        response.json(), from_attributes=True
+    )
+    assert inventory
+    assert inventory[0].product
+    assert inventory[0].product.id
+    assert inventory[0].product.title
+    assert inventory[0].place
+    assert inventory[0].place.id
+    assert inventory[0].place.title
+    assert inventory[0].amount
