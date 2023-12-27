@@ -19,8 +19,11 @@ async def get_token(
     session: Annotated[Session, Depends(get_db)],
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ):
-    employee = get_employee_by_username(form_data.username, session)
-    roles = get_roles_by_employee_id(employee.id, session)
+    try:
+        employee = get_employee_by_username(form_data.username, session)
+        roles = get_roles_by_employee_id(employee.id, session)
+    except Exception:
+        raise http_exceptions.UnauthorizedException
     if not employee:
         raise http_exceptions.UnauthorizedException
     if not security.validate_password(form_data.password, employee.password_hash):
