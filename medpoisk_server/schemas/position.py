@@ -3,12 +3,12 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field
 
 from .place import Place, PlaceCreate
-from .product import Product, ProductCreate
+from .product import ProductCreate, ProductPublick
 
 
 class PositionBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-    product: Product
+    product: ProductPublick
     amount: int
     place: Place
 

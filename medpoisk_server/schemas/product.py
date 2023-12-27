@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from pydantic import BaseModel, ConfigDict
 
 from .place import Place
@@ -8,7 +6,7 @@ from .place import Place
 class ProductBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     title: str
-    min_amount: int
+    # min_amount: int
     barcode: int
 
 
@@ -17,11 +15,13 @@ class ProductCreate(ProductBase):
 
 
 class ProductPublick(ProductBase):
-    id: UUID
+    id: int
     amount: int
     places: list[Place]
     picture_url: str | None
 
 
-class Product(ProductBase):
-    id: UUID
+class ProductShortPublick(ProductBase):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    title: str
