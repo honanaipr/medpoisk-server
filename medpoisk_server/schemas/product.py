@@ -21,7 +21,7 @@ class ProductPublick(ProductBase):
     picture_url: str | None
 
 
-class ProductShortPublick(ProductBase):
+class ProductShortPublick(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
     title: str
