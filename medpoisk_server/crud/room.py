@@ -4,12 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
-
-
-def flatten_divisions(S):
-    if not S:
-        return S
-    return S[:1] + flatten_divisions(S[0].sub_divisions) + flatten_divisions(S[1:])
+from .division import flatten_divisions
 
 
 def get_rooms(db: Session, employee: schemas.EmployeePrivate) -> Iterable[models.Room]:
