@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from .place import Place
+from .picture import PicturePublick
 
 
 class ProductBase(BaseModel):
@@ -16,9 +16,10 @@ class ProductCreate(ProductBase):
 
 class ProductPublick(ProductBase):
     id: int
-    amount: int
-    places: list[Place]
-    picture_url: str | None
+    title: str
+    barcode: int
+    description: str
+    pictures: list[PicturePublick]
 
 
 class ProductShortPublick(BaseModel):

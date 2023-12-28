@@ -1,15 +1,11 @@
 from uuid import UUID
 
+from pydantic.type_adapter import TypeAdapter
 from sqlalchemy import UUID as db_UUID
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
-
-
-def get_products(db: Session, skip: int = 0, limit: int = 100) -> list[models.Product]:
-    stmt = select(models.Product).offset(skip).limit(limit)
-    return list(db.execute(stmt).scalars())
 
 
 def get_product(
@@ -48,24 +44,6 @@ def get_product_places(db: Session, product_id: db_UUID):
     )
 
 
-def get_publick_products(
-    db: Session, skip: int = 0, limit: int = 100
-) -> list[schemas.ProductPublick]:
-    db_products = get_products(db, skip=skip, limit=limit)
-    products = []
-    for db_product in db_products:
-        places = []
-        for place in get_product_places(db, db_product.id):
-            places.append(schemas.Place.model_validate(place))
-        product = schemas.ProductPublick(
-            **db_product.__dict__,
-            amount=get_product_amount(db, db_product.id),
-            places=places,
-        )
-        products.append(product)
-    return products
-
-
 def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(**product.model_dump())
     db.add(db_product)
@@ -76,7 +54,7 @@ def create_product(db: Session, product: schemas.ProductCreate):
 
 def set_product_picture_url(db: Session, id: UUID, url: str):
     stmt = select(models.Product).where(models.Product.id == id)
-    db_product = db.scalar(stmt)
+    db_product = db.scalars(stmt).one()
     db_product.picture_url = url
 
 
@@ -84,3 +62,10 @@ def delete_products(db: Session, id: UUID):
     stmt = select(models.Product).where(models.Product.id == id)
     db_product = db.scalar(stmt)
     db.delete(db_product)
+
+
+def get_all_products(db: Session) -> list[schemas.ProductPublick]:
+    stmt = select(models.Product)
+    return TypeAdapter(list[schemas.ProductPublick]).validate_python(
+        db.scalars(stmt), from_attributes=True
+    )

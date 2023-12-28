@@ -17,8 +17,8 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[ProductPublick])
-async def get_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_publick_products(db, skip=skip, limit=limit)
+async def get_products(db: Session = Depends(get_db)):
+    return crud.get_all_products(db)
 
 
 @router.put("/", response_model=ProductPublick)

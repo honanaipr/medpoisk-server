@@ -6,6 +6,7 @@ DELETE FROM product;
 DELETE FROM place;
 DELETE FROM inventory;
 DELETE FROM minamount;
+DELETE FROM picture;
 
 INSERT INTO employee (username, first_name, middle_name, last_name, email, password_hash)
 VALUES
@@ -62,6 +63,14 @@ VALUES
 ('Витамин С', 'Витамин С (аскорбиновая кислота) является незаменимым питательным веществом для организма. Он помогает поддерживать иммунную систему, улучшает абсорбцию железа и помогает в процессе регенерации тканей.', 6543210987654),
 ('Инсулин', 'Инсулин - это гормон, производимый поджелудочной железой, который регулирует уровень сахара в крови. Он используется для лечения диабета и помогает контролировать уровни глюкозы в организме.', 3210987654321),
 ('Пропранолол', 'Пропранолол - это бета-адреноблокатор, используемый для лечения высокого кровяного давления, аритмии и других сердечно-сосудистых проблем. Он помогает снизить частоту сердечных сокращений и контролировать симптомы связанных с сердечными заболеваниями.', 7890123456789);
+
+
+INSERT INTO picture (product_id, url)
+VALUES
+((SELECT id FROM product WHERE title = 'Аспирин'), 'https://imgs.search.brave.com/yqj3yhAUHk8JJavNy4Kvcn_OKJSuqdJeuT-XX7GA_bw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb21w/ZW5kaXVtLmNvbS51/YS9pbWcvaW5mLzEy/MzU4XzkwXzM5XzE3/XzE4LmpwZw'),
+((SELECT id FROM product WHERE title = 'Аспирин'), 'https://imgs.search.brave.com/nZziGh-6Mfq1Qc0K-dXiU7kc2uGht5vsc3q-hgs3vT4/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemRyYXZjaXR5/LnJ1L3VwbG9hZC9p/YmxvY2svYjc0LzIw/MF8yMDBfcGhvdG9f/ZXNfQ0UzMUJDOEMt/QzFBMC1COUQyLUFF/MDUtM0RFMEEwMzBB/MzUyLmpwZw'),
+((SELECT id FROM product WHERE title = 'Парацетамол'), 'https://imgs.search.brave.com/IoINSocwFCgNUDDA3HIM1iWlGvUuBe6a_mCSb7sFF0k/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemRyYXZjaXR5/LnJ1L3VwbG9hZC9p/YmxvY2svODI4LzIw/MF8yMDBfcGhvdG9f/ZXNfRUFCN0ZBRTAt/MDlDQy02MzYxLUFF/MDUtMzAxMDAwMDdG/RTQ2LmpwZw'),
+((SELECT id FROM product WHERE title = 'Ибупрофен'), 'https://imgs.search.brave.com/ruPASvnQ6Xar1Nf259SGiT3FcucSXprjCQT5ESLH6XM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/bWVkY2VudHJlLmNv/bS51YS9pLzIwMTQv/MDQvaWJ1cHJvZmVu/XzI1MC5qcGc');
 
 
 INSERT INTO place (title, division_id)
