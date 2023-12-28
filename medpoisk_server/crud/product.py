@@ -8,22 +8,6 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 
 
-def get_product(
-    db: Session, product_name: str | None = None, product_barcode: int | None = None
-):
-    if product_name is not None:
-        return (
-            db.query(models.Product).where(models.Product.title == product_name).one()
-        )
-    elif product_barcode is not None:
-        return (
-            db.query(models.Product)
-            .where(models.Product.barcode == product_barcode)
-            .one()
-        )
-    else:
-        raise ValueError("place_name or place_id mast be specified")
-
 
 def get_product_amount(db: Session, product_id: db_UUID):
     return (
