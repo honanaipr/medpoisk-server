@@ -40,6 +40,7 @@ def get_token(role: schemas.Role = schemas.Role.director) -> str:
             }
         )
     response = client.post("/api/v0/auth/login", data=data)
+    assert response.status_code == 200
     return response.json()["access_token"]
 
 
