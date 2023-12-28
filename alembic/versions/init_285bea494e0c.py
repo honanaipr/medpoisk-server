@@ -1,8 +1,8 @@
 """init
 
-Revision ID: 7ae6dcd6bc15
+Revision ID: 285bea494e0c
 Revises:
-Create Date: 2023-12-28 01:20:40.664181
+Create Date: 2023-12-28 15:08:34.489745
 
 """
 from typing import Sequence, Union
@@ -13,7 +13,7 @@ from sqlalchemy.dialects import postgresql
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = "7ae6dcd6bc15"
+revision: str = "285bea494e0c"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -69,6 +69,17 @@ def upgrade() -> None:
             ["division_id"],
             ["division.id"],
         ),
+        sa.ForeignKeyConstraint(
+            ["product_id"],
+            ["product.id"],
+        ),
+        sa.PrimaryKeyConstraint("id"),
+    )
+    op.create_table(
+        "picture",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("product_id", sa.Integer(), nullable=False),
+        sa.Column("url", sa.String(), nullable=False),
         sa.ForeignKeyConstraint(
             ["product_id"],
             ["product.id"],
@@ -164,6 +175,7 @@ def downgrade() -> None:
     op.drop_table("room")
     op.drop_table("privilage")
     op.drop_table("place")
+    op.drop_table("picture")
     op.drop_table("minamount")
     op.drop_table("product")
     op.drop_table("employee")
