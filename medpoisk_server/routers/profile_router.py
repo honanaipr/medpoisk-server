@@ -3,8 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from .. import dependencies, http_exceptions, schemas
-from ..crud import profile
+from .. import crud, dependencies, http_exceptions, schemas
 
 router = APIRouter(
     prefix="/profile",
@@ -45,6 +44,6 @@ async def get_staff(
             for role in token_data.roles
             if role.role_name != schemas.Role.doctor
         ]
-    employees = profile.get_staff(session, division_ids)
+    employees = crud.get_staff(session, division_ids)
 
     return employees
