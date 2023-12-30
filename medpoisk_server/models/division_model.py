@@ -5,11 +5,11 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
-from .privilage import Privilage
-from .room import Room
+from .privilage_model import Privilage
+from .room_model import Room
 
 if TYPE_CHECKING:
-    from .place import Place
+    from .place_model import Place
 
 
 class Division(Base):

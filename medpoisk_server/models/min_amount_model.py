@@ -6,8 +6,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from ..database import Base
 
 if TYPE_CHECKING:
-    from .division import Division
-    from .product import Product
+    from .division_model import Division
+    from .product_model import Product
 else:
     Division = "Division"
     Product = "Product"

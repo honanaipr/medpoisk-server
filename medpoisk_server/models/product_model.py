@@ -3,10 +3,10 @@ from typing import TYPE_CHECKING
 from sqlalchemy import BigInteger, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .picture import Picture
+from .picture_model import Picture
 
 if TYPE_CHECKING:
-    from .place import Place
+    from .place_model import Place
 else:
     Place = "Place"
 from ..database import Base

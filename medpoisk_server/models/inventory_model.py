@@ -2,8 +2,8 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
-from .place import Place
-from .product import Product
+from .place_model import Place
+from .product_model import Product
 
 
 class Inventory(Base):

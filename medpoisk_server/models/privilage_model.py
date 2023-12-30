@@ -4,11 +4,11 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
-from .role import Role
+from .role_model import Role
 
 if TYPE_CHECKING:
-    from .division import Division
-    from .employee import Employee
+    from .division_model import Division
+    from .employee_model import Employee
 
 
 class Privilage(Base):

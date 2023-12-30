@@ -2,7 +2,7 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
-from .privilage import Privilage
+from .privilage_model import Privilage
 
 
 class Employee(Base):
