@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-RUN apt update && apt upgrade -y && apt install -y libpq-dev python3-dev gcc
+RUN apt update && apt upgrade -y
 
 RUN pip install -U pip && pip install poetry
 
