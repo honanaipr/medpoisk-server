@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from .division import DivisionPublick
-from .role import Role
+from .division_schemas import DivisionPublick
+from .role_schemas import Role
 
 
 class Token(BaseModel):

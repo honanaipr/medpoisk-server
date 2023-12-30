@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from .place import PlaceShortPublick
-from .product import ProductShortPublick
+from .place_schemas import PlaceShortPublick
+from .product_schemas import ProductShortPublick
 
 
 class InventoryItmePublick(BaseModel):

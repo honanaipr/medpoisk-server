@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from .division import DivisionPublick
-from .product import ProductShortPublick
+from .division_schemas import DivisionPublick
+from .product_schemas import ProductShortPublick
 
 
 class LimitPublick(BaseModel):

@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
-from .division import DivisionPrivate
-from .role import Role
+from .division_schemas import DivisionPrivate
+from .role_schemas import Role
 
 
 class PrivilagePrivate(BaseModel):

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from .division import DivisionPublick
+from .division_schemas import DivisionPublick
 
 
 class RoomBase(BaseModel):

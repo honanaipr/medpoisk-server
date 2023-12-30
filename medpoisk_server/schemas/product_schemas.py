@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from .picture import PicturePublick
+from .picture_schemas import PicturePublick
 
 
 class ProductBase(BaseModel):
