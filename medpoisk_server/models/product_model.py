@@ -23,4 +23,6 @@ class Product(Base):
     places: Mapped[list[Place]] = relationship(
         "Place", back_populates="products", secondary="inventory"
     )
-    pictures: Mapped[list[Picture]] = relationship("Picture", back_populates="product")
+    pictures: Mapped[list[Picture]] = relationship(
+        "Picture", back_populates="product", cascade="all, delete"
+    )
