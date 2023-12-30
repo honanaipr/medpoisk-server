@@ -40,7 +40,7 @@ async def new_product(
     )
 
 
-@router.delete("/{id}")
+@router.delete("/")
 async def get_detailed_product(id: int, db: Session = Depends(get_db)) -> bool:
     crud.delete_product(db, id)
     db.commit()
