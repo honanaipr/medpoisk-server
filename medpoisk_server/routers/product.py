@@ -1,12 +1,11 @@
 import uuid
+from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.exc import IntegrityError
+from fastapi import APIRouter, Depends, Form, UploadFile
 from sqlalchemy.orm import Session
 
-from .. import crud
+from .. import crud, dependencies, schemas
 from ..dependencies import get_db
-from ..schemas import ProductCreate, ProductPublick
 
 router = APIRouter(
     prefix="/product",
@@ -16,21 +15,30 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=list[ProductPublick])
+@router.get("/", response_model=list[schemas.ProductPublick])
 async def get_products(db: Session = Depends(get_db)):
     return crud.get_all_products(db)
 
 
-@router.put("/", response_model=ProductPublick)
-async def new_product(product: ProductCreate, db: Session = Depends(get_db)):
-    try:
-        db_product = crud.create_product(db, product)
-    except IntegrityError as e:
-        raise HTTPException(
-            status_code=400, detail="Product barcode must be unique!"
-        ) from e
-    db.commit()
-    return db_product
+@router.put("/", response_model=schemas.ProductPublick)
+async def new_product(
+    db: Annotated[Session, Depends(get_db)],
+    token_data: Annotated[
+        schemas.TokenData, Depends(dependencies.get_verified_token_data)
+    ],
+    pictures: list[UploadFile],
+    title: Annotated[str, Form()],
+    barcode: Annotated[int | None, Form()] = None,
+    min_amount: Annotated[int | None, Form()] = None,
+):
+    new_product = schemas.ProductCreate(title=title, barcode=barcode)
+    return crud.create_product(
+        db,
+        new_product,
+        input_pictures=[
+            (picture.file, picture.headers["content-type"]) for picture in pictures
+        ],
+    )
 
 
 @router.delete("/{id}")

@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import BigInteger, Column, Integer
+from sqlalchemy import BigInteger, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .picture import Picture
@@ -17,8 +17,8 @@ class Product(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str]
-    description: Mapped[str]
-    barcode = Column(BigInteger)
+    description: Mapped[str | None]
+    barcode: Mapped[int | None] = mapped_column(BigInteger)
     positions = relationship("Position", back_populates="product")
     places: Mapped[list[Place]] = relationship(
         "Place", back_populates="products", secondary="inventory"

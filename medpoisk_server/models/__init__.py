@@ -4,6 +4,7 @@ from .doctor import Doctor
 from .employee import Employee
 from .inventory import Inventory
 from .min_amount import MinAmount
+from .picture import Picture
 from .place import Place
 from .position import Position
 from .privilage import Privilage
@@ -24,4 +25,5 @@ __all__ = [
     "Role",
     "Room",
     "MinAmount",
+    "Picture",
 ]

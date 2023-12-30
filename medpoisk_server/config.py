@@ -15,7 +15,8 @@ class JWTSettings(BaseModel):
 
 
 class Settings(BaseSettings):
-    pictures_dir: str = Field(default="./pictures")
+    pictures_dir: Path = Field((BASE_PATH / "pictures").absolute())
+    pictures_base_url: str = Field(default="pictures")
     sqlalchemy_db_url: str = Field(
         default="postgresql://postgres:password@localhost/medpoisk"
     )

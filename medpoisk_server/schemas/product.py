@@ -6,8 +6,7 @@ from .picture import PicturePublick
 class ProductBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     title: str
-    # min_amount: int
-    barcode: int
+    barcode: int | None = None
 
 
 class ProductCreate(ProductBase):
@@ -17,8 +16,8 @@ class ProductCreate(ProductBase):
 class ProductPublick(ProductBase):
     id: int
     title: str
-    barcode: int
-    description: str
+    barcode: int | None
+    description: str | None
     pictures: list[PicturePublick]
 
 
