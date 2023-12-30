@@ -119,3 +119,4 @@ def test_delete_product():
         with SessionLocal() as db:
             if isinstance(new_product, schemas.ProductPublick):
                 delete_product(db, new_product.id)
+        raise
