@@ -35,11 +35,6 @@ def test_get_all_products():
 
 def test_create_product(cleanup=True):
     token = get_token()
-    response = client.get(
-        "/api/v0/product",
-        headers={"Authorization": f"Bearer {token}"},
-    )
-
     new_product = schemas.ProductCreate(title="Миромистин", barcode=123)
     files = [
         (
