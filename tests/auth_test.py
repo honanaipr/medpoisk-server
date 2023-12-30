@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from medpoisk_server import schemas
-from medpoisk_server.main import app
+from medpoisk_server.app import app
 from medpoisk_server.security import jwt_decode
 
 client = TestClient(app)

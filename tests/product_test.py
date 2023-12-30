@@ -5,9 +5,9 @@ from fastapi.testclient import TestClient
 from pydantic.type_adapter import TypeAdapter
 
 from medpoisk_server import schemas
+from medpoisk_server.app import app
 from medpoisk_server.crud import create_product, delete_product, get_all_products
 from medpoisk_server.database import SessionLocal
-from medpoisk_server.main import app
 
 from .auth_test import get_token
 

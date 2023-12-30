@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from medpoisk_server.main import app
+from medpoisk_server.app import app
 
 from .auth_test import get_token
 
