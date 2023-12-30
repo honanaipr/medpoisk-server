@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from pydantic.type_adapter import TypeAdapter
 
 from medpoisk_server import schemas
-from medpoisk_server.crud import delete_product
+from medpoisk_server.crud import create_product, delete_product, get_all_products
 from medpoisk_server.database import SessionLocal
 from medpoisk_server.main import app
 
@@ -77,3 +77,45 @@ def test_create_product(cleanup=True):
         with SessionLocal() as db:
             delete_product(db, product.id)
             db.commit()
+
+
+def test_delete_product():
+    token = get_token()
+    new_product = schemas.ProductCreate(title="Тестовый продукт", barcode=123)
+    try:
+        with SessionLocal() as db:
+            new_product = create_product(
+                db,
+                new_product,
+                [
+                    (
+                        open(
+                            Path(__file__).parent / "assets" / "mock_image.jpeg", "rb"
+                        ),
+                        "image/jpeg",
+                    ),
+                    (
+                        open(
+                            Path(__file__).parent / "assets" / "mock_image.jpeg", "rb"
+                        ),
+                        "image/jpeg",
+                    ),
+                ],
+            )
+            db.commit()
+        with SessionLocal() as db:
+            products = get_all_products(db)
+            assert new_product in products
+        response = client.delete(
+            "/api/v0/product",
+            headers={"Authorization": f"Bearer {token}"},
+            params={"id": new_product.id},
+        )
+        assert response.status_code == 200
+        with SessionLocal() as db:
+            products = get_all_products(db)
+            assert new_product not in products
+    except Exception:
+        with SessionLocal() as db:
+            if isinstance(new_product, schemas.ProductPublick):
+                delete_product(db, new_product.id)
