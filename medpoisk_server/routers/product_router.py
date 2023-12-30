@@ -31,13 +31,15 @@ async def new_product(
     min_amount: Annotated[int | None, Form()] = None,
 ):
     new_product = schemas.ProductCreate(title=title, barcode=barcode)
-    return crud.create_product(
+    created_product = crud.create_product(
         db,
         new_product,
         input_pictures=[
             (picture.file, picture.headers["content-type"]) for picture in pictures
         ],
     )
+    db.commit()
+    return created_product
 
 
 @router.delete("/")

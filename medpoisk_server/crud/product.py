@@ -84,7 +84,6 @@ def create_product(
         for path in written:
             path.unlink()
         raise
-    db.commit()
     return schemas.ProductPublick.model_validate(db_product, from_attributes=True)
 
 
@@ -98,7 +97,6 @@ def delete_product(db: Session, id: int):
     stmt = select(models.Product).where(models.Product.id == id)
     db_product = db.scalars(stmt).one()
     db.delete(db_product)
-    db.commit()
 
 
 def get_all_products(db: Session) -> list[schemas.ProductPublick]:
