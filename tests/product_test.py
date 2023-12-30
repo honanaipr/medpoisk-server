@@ -74,3 +74,4 @@ def test_create_product():
     for picture in product.pictures:
         test_path = Path(__file__).parent.parent / "pictures" / picture.url
         assert filecmp.cmp(mock_path, test_path)
+        test_path.unlink()
