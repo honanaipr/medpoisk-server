@@ -2,16 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import (
-    auth,
-    doctor,
-    inventory,
-    limit,
-    picture,
-    places,
-    position,
-    product,
-    profile,
-    room,
+    auth_router,
+    doctor_router,
+    inventory_router,
+    limit_router,
+    picture_router,
+    places_router,
+    position_router,
+    product_router,
+    profile_router,
+    room_router,
 )
 
 app = FastAPI()
@@ -31,13 +31,13 @@ app.add_middleware(
 v1 = FastAPI()
 app.mount("/api/v0", v1)
 
-v1.include_router(auth.router)
-v1.include_router(profile.router)
-v1.include_router(position.router)
-v1.include_router(product.router)
-v1.include_router(room.router)
-v1.include_router(doctor.router)
-v1.include_router(places.router)
-v1.include_router(picture.router)
-v1.include_router(inventory.router)
-v1.include_router(limit.router)
+v1.include_router(auth_router)
+v1.include_router(profile_router)
+v1.include_router(position_router)
+v1.include_router(product_router)
+v1.include_router(room_router)
+v1.include_router(doctor_router)
+v1.include_router(places_router)
+v1.include_router(picture_router)
+v1.include_router(inventory_router)
+v1.include_router(limit_router)
