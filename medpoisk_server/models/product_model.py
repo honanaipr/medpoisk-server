@@ -16,7 +16,7 @@ class Product(Base):
     __tablename__ = "product"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    title: Mapped[str]
+    title: Mapped[str] = mapped_column(unique=True)
     description: Mapped[str | None]
     barcode: Mapped[int | None] = mapped_column(BigInteger)
     positions = relationship("Position", back_populates="product")
