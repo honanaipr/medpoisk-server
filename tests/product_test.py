@@ -5,6 +5,8 @@ from fastapi.testclient import TestClient
 from pydantic.type_adapter import TypeAdapter
 
 from medpoisk_server import schemas
+from medpoisk_server.crud import delete_product
+from medpoisk_server.database import SessionLocal
 from medpoisk_server.main import app
 
 from .auth_test import get_token
@@ -31,7 +33,7 @@ def test_get_all_products():
     assert products[0].pictures[0].url
 
 
-def test_create_product():
+def test_create_product(cleanup=True):
     token = get_token()
     response = client.get(
         "/api/v0/product",
@@ -71,7 +73,12 @@ def test_create_product():
     assert product
     assert product.pictures[0].url
     mock_path = Path(__file__).parent / "assets" / "mock_image.jpeg"
+
     for picture in product.pictures:
         test_path = Path(__file__).parent.parent / "pictures" / picture.url
         assert filecmp.cmp(mock_path, test_path)
-        test_path.unlink()
+
+    if cleanup:
+        with SessionLocal() as db:
+            delete_product(db, product.id)
+            db.commit()

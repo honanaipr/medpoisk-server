@@ -1,4 +1,3 @@
-import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, UploadFile
@@ -42,7 +41,7 @@ async def new_product(
 
 
 @router.delete("/{id}")
-async def get_detailed_product(id: uuid.UUID, db: Session = Depends(get_db)) -> bool:
-    crud.delete_products(db, id)
+async def get_detailed_product(id: int, db: Session = Depends(get_db)) -> bool:
+    crud.delete_product(db, id)
     db.commit()
     return True
