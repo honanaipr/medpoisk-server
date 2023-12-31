@@ -7,8 +7,8 @@ BASE_PATH = Path(__file__).parent.parent
 
 
 class JWTSettings(BaseModel):
-    private_key_path: Path = BASE_PATH / "scripts" / "jwt-private.pem"
-    public_key_path: Path = BASE_PATH / "scripts" / "jwt-public.pem"
+    private_key_path: Path = Field(default=BASE_PATH / "scripts" / "jwt-private.pem")
+    public_key_path: Path = Field(default=BASE_PATH / "scripts" / "jwt-public.pem")
     access_token_lifetime_minutes: int = 5
     refresh_token_lifetime_minutes: int = 30
     algorithm: str = "RS256"
