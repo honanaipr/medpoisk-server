@@ -37,3 +37,6 @@ build-backend = "poetry.core.masonry.api"
 select = ["F","E","W","I"]
 
 ignore  = ["F403"]
+
+[tool.poetry.scripts]
+medpoisk_server_run = 'medpoisk_server.cli:run'

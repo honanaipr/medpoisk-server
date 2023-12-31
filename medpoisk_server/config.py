@@ -1,9 +1,10 @@
+from os import environ
 from pathlib import Path
 
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
 
-BASE_PATH = Path(__file__).parent.parent
+BASE_PATH = Path(environ["ROOT_PATH"]) or Path(__file__).parent.parent
 
 
 class JWTSettings(BaseModel):
