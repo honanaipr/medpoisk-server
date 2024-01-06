@@ -19,4 +19,4 @@ async def get_all_inventory(
         schemas.TokenData, Depends(dependencies.get_verified_token_data)
     ],
 ):
-    return crud.get_inventory(db, token_data)
+    return crud.get_inventory(db, [role.division.id for role in token_data.roles])
