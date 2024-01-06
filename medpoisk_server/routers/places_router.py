@@ -1,10 +1,10 @@
-import uuid
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from .. import crud
+from .. import crud, dependencies, schemas
 from ..dependencies import get_db
 from ..schemas import Place, PlaceCreate
 
@@ -14,11 +14,21 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=list[Place])
+@router.get("/", response_model=list[schemas.PlacePublick])
 async def get_all_places(
-    product_id: uuid.UUID | None = None, db: Session = Depends(get_db)
+    db: Annotated[Session, Depends(get_db)],
+    token_data: Annotated[
+        schemas.TokenData, Depends(dependencies.get_verified_token_data)
+    ],
 ):
-    return crud.get_places(db, product_id)
+    return crud.get_places(
+        db,
+        [
+            role.division.id
+            for role in token_data.roles
+            if role.role_name in (schemas.Role.director, schemas.Role.manager)
+        ],
+    )
 
 
 @router.put("/", response_model=Place)

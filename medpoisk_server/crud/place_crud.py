@@ -7,16 +7,10 @@ from .. import models, schemas
 
 
 def get_places(
-    db: Session, product_id: int | None = None, skip: int = 0, limit: int = 100
+    db: Session,
+    division_ids: list[int],
 ) -> Iterable[models.Place]:
-    stmt = select(models.Place)
-    if product_id:
-        stmt = (
-            stmt.join(models.Position)
-            .join(models.Product)
-            .where(models.Product.id == product_id)
-        )
-    stmt = stmt.offset(skip).limit(limit)
+    stmt = select(models.Place).where(models.Place.division_id.in_(division_ids))
     return db.scalars(stmt)
 
 
