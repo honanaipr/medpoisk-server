@@ -22,6 +22,6 @@ def test_get_limits_for_role(role, num_limits):
         response.json(), from_attributes=True
     )
     assert len(limits) == num_limits
-    assert limits[0].product
-    assert limits[0].division
+    assert limits[0].product_id
+    assert limits[0].division_id
     assert limits[0].min_amount
