@@ -9,6 +9,7 @@ from .privilage_model import Privilage
 from .room_model import Room
 
 if TYPE_CHECKING:
+    from .balacnce_model import Balance
     from .place_model import Place
 
 
@@ -27,3 +28,4 @@ class Division(Base):
     sub_divisions: Mapped[list["Division"]] = relationship(
         back_populates="super_division"
     )
+    balance: Mapped["Balance"] = relationship("Balance", back_populates="division")
