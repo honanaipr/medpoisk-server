@@ -67,10 +67,10 @@ VALUES
 
 INSERT INTO picture (product_id, url)
 VALUES
-((SELECT id FROM product WHERE title = 'Аспирин'), 'https://imgs.search.brave.com/yqj3yhAUHk8JJavNy4Kvcn_OKJSuqdJeuT-XX7GA_bw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb21w/ZW5kaXVtLmNvbS51/YS9pbWcvaW5mLzEy/MzU4XzkwXzM5XzE3/XzE4LmpwZw'),
-((SELECT id FROM product WHERE title = 'Аспирин'), 'https://imgs.search.brave.com/nZziGh-6Mfq1Qc0K-dXiU7kc2uGht5vsc3q-hgs3vT4/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemRyYXZjaXR5/LnJ1L3VwbG9hZC9p/YmxvY2svYjc0LzIw/MF8yMDBfcGhvdG9f/ZXNfQ0UzMUJDOEMt/QzFBMC1COUQyLUFF/MDUtM0RFMEEwMzBB/MzUyLmpwZw'),
-((SELECT id FROM product WHERE title = 'Парацетамол'), 'https://imgs.search.brave.com/IoINSocwFCgNUDDA3HIM1iWlGvUuBe6a_mCSb7sFF0k/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemRyYXZjaXR5/LnJ1L3VwbG9hZC9p/YmxvY2svODI4LzIw/MF8yMDBfcGhvdG9f/ZXNfRUFCN0ZBRTAt/MDlDQy02MzYxLUFF/MDUtMzAxMDAwMDdG/RTQ2LmpwZw'),
-((SELECT id FROM product WHERE title = 'Ибупрофен'), 'https://imgs.search.brave.com/ruPASvnQ6Xar1Nf259SGiT3FcucSXprjCQT5ESLH6XM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/bWVkY2VudHJlLmNv/bS51YS9pLzIwMTQv/MDQvaWJ1cHJvZmVu/XzI1MC5qcGc');
+((SELECT id FROM product WHERE title = 'Аспирин'), 'https:////imgs.search.brave.com/yqj3yhAUHk8JJavNy4Kvcn_OKJSuqdJeuT-XX7GA_bw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb21w/ZW5kaXVtLmNvbS51/YS9pbWcvaW5mLzEy/MzU4XzkwXzM5XzE3/XzE4LmpwZw'),
+((SELECT id FROM product WHERE title = 'Аспирин'), 'https:////imgs.search.brave.com/nZziGh-6Mfq1Qc0K-dXiU7kc2uGht5vsc3q-hgs3vT4/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemRyYXZjaXR5/LnJ1L3VwbG9hZC9p/YmxvY2svYjc0LzIw/MF8yMDBfcGhvdG9f/ZXNfQ0UzMUJDOEMt/QzFBMC1COUQyLUFF/MDUtM0RFMEEwMzBB/MzUyLmpwZw'),
+((SELECT id FROM product WHERE title = 'Парацетамол'), 'https:////imgs.search.brave.com/IoINSocwFCgNUDDA3HIM1iWlGvUuBe6a_mCSb7sFF0k/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemRyYXZjaXR5/LnJ1L3VwbG9hZC9p/YmxvY2svODI4LzIw/MF8yMDBfcGhvdG9f/ZXNfRUFCN0ZBRTAt/MDlDQy02MzYxLUFF/MDUtMzAxMDAwMDdG/RTQ2LmpwZw'),
+((SELECT id FROM product WHERE title = 'Ибупрофен'), 'https:////imgs.search.brave.com/ruPASvnQ6Xar1Nf259SGiT3FcucSXprjCQT5ESLH6XM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/bWVkY2VudHJlLmNv/bS51YS9pLzIwMTQv/MDQvaWJ1cHJvZmVu/XzI1MC5qcGc');
 
 
 INSERT INTO place (title, division_id)
