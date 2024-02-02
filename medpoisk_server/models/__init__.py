@@ -1,4 +1,5 @@
 from ..database import Base
+from .balacnce_model import Balance
 from .division_model import Division
 from .doctor_model import Doctor
 from .employee_model import Employee
@@ -26,4 +27,5 @@ __all__ = [
     "Room",
     "MinAmount",
     "Picture",
+    "Balance",
 ]
