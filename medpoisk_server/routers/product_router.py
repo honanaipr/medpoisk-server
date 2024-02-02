@@ -25,8 +25,8 @@ async def new_product(
     token_data: Annotated[
         schemas.TokenData, Depends(dependencies.get_verified_token_data)
     ],
-    pictures: list[UploadFile],
     title: Annotated[str, Form()],
+    pictures: list[UploadFile] = [],
     barcode: Annotated[int | None, Form()] = None,
     min_amount: Annotated[int | None, Form()] = None,
 ):
