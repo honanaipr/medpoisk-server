@@ -24,7 +24,7 @@ async def get_all_rooms(
     return crud.get_rooms(db, user)
 
 
-@router.put("/", response_model=Room)
+@router.put("/", response_model=schemas.RoomBublick)
 async def add_new_room(room: RoomCreate, db: Session = Depends(get_db)):
     try:
         db_room = crud.create_room(db, room)

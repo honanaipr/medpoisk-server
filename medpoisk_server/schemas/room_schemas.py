@@ -10,9 +10,17 @@ class RoomBase(BaseModel):
     division: DivisionPublick
 
 
-class RoomCreate(RoomBase):
-    pass
+class RoomCreate(BaseModel):
+    title: str
+    division_id: int
 
 
 class Room(RoomBase):
     id: int
+
+
+class RoomBublick(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    title: str
+    division_id: int
