@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from .. import crud, dependencies, schemas
 from ..dependencies import get_db
-from ..schemas import Place, PlaceCreate
+from ..schemas import PlaceCreate
 
 router = APIRouter(
     prefix="/place",
@@ -31,7 +31,7 @@ async def get_all_places(
     )
 
 
-@router.put("/", response_model=Place)
+@router.put("/", response_model=schemas.PlacePublick)
 async def add_new_place(place: PlaceCreate, db: Session = Depends(get_db)):
     try:
         db_place = crud.create_place(db, place)

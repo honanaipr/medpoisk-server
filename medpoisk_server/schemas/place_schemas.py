@@ -7,10 +7,16 @@ class PlaceBase(BaseModel):
 
 
 class PlaceCreate(PlaceBase):
-    pass
+    title: str
+    division_id: int
 
 
 class Place(PlaceBase):
+    id: int
+
+
+class PlaceIdPublick(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
 
 
