@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    environment:
+      - sqlalchemy_db_url=postgresql://medpoisk:mespoisk@database/medpoisk
+    ports:
+      - "8000:8000"
+    networks:
+      - front-tier
+      - back-tier
+
+  database:
+    image: postgres:16.1
+    environment:
+      - POSTGRES_PASSWORD=mespoisk
+      - POSTGRES_USER=medpoisk
+      - POSTGRES_DB=medpoisk
+    volumes:
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/1_init_db.sql
+      - ./scripts/inflate_db.sql:/docker-entrypoint-initdb.d/2_inflate_db.sql
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier: {}
+  back-tier: {}

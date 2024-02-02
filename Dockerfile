@@ -4,10 +4,6 @@ RUN pip install poetry
 
 WORKDIR /medpoisk-server
 
-COPY ./pyproject.toml .
-
-RUN poetry install --no-root
-
 COPY . .
 
 RUN poetry build --directory=dist --no-interaction
@@ -21,10 +17,11 @@ WORKDIR /medpoisk-server
 
 COPY --from=build /medpoisk-server/dist/*.whl .
 
-RUN pip install *.whl
+RUN python -m pip install *.whl
 
 ENV ROOT_PATH /medpoisk-server/
 
 COPY --from=build /medpoisk-server/scripts/*.pem ./scripts/
+RUN ls ./scripts/
 
 CMD [ "medpoisk_server_run" ]
