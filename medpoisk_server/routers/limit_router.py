@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[schemas.LimitPublick])
-async def get_all_doctors(
+async def get_all_limits(
     db: Annotated[Session, Depends(dependencies.get_db)],
     divisions: Annotated[
         list[schemas.DivisionPublick], Depends(dependencies.get_auntificated_divisions)
