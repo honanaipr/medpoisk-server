@@ -29,6 +29,7 @@ async def get_staff(
     ],
     session: Annotated[Session, Depends(dependencies.get_db)],
     division_id: int | None = None,
+    role_name: schemas.Role | None = None,
 ):
     if division_id:
         if division_id not in [
@@ -44,6 +45,6 @@ async def get_staff(
             for role in token_data.roles
             if role.role_name != schemas.Role.doctor
         ]
-    employees = crud.get_staff(session, division_ids)
+    employees = crud.get_staff(session, division_ids, role_name)
 
     return employees
