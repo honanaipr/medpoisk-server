@@ -2,6 +2,7 @@ from .doctor_schemas import *
 from .employee_schemas import *
 from .inventory_schemas import *
 from .limit_schemas import *
+from .move_schemas import *
 from .place_schemas import *
 from .position_schemas import *
 from .product_schemas import *
