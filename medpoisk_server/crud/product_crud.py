@@ -5,31 +5,29 @@ from urllib.parse import quote, urljoin
 from uuid import UUID
 
 from pydantic.type_adapter import TypeAdapter
-from sqlalchemy import UUID as db_UUID
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..config import config
 
+# def get_product_amount(db: Session, product_id: db_UUID):
+#     return (
+#         db.query(func.coalesce(func.sum(models.Position.amount), 0))
+#         .join(models.Product)
+#         .where(models.Product.id == product_id)
+#         .scalar()
+#     )
 
-def get_product_amount(db: Session, product_id: db_UUID):
-    return (
-        db.query(func.coalesce(func.sum(models.Position.amount), 0))
-        .join(models.Product)
-        .where(models.Product.id == product_id)
-        .scalar()
-    )
 
-
-def get_product_places(db: Session, product_id: db_UUID):
-    return (
-        db.query(models.Place)
-        .join(models.Position)
-        .join(models.Product)
-        .where(models.Product.id == product_id)
-        .all()
-    )
+# def get_product_places(db: Session, product_id: db_UUID):
+#     return (
+#         db.query(models.Place)
+#         .join(models.Position)
+#         .join(models.Product)
+#         .where(models.Product.id == product_id)
+#         .all()
+#     )
 
 
 def str2slug(input: str) -> str:

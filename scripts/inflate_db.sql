@@ -5,7 +5,7 @@ DELETE FROM room;
 DELETE FROM product;
 DELETE FROM place;
 DELETE FROM inventory;
-DELETE FROM minamount;
+DELETE FROM limit;
 DELETE FROM picture;
 
 INSERT INTO employee (username, first_name, middle_name, last_name, email, password_hash)
@@ -111,7 +111,7 @@ VALUES
 ((SELECT id FROM product WHERE title = 'Аспирин'), (SELECT id FROM place WHERE title = 'Морозильник' AND division_id = (SELECT id FROM division WHERE title='Филиал №2')), 7);
 
 
-INSERT INTO minamount (product_id, division_id, min_amount)
+INSERT INTO "limit" (product_id, division_id, min_amount)
 VALUES
 ((SELECT id FROM product WHERE title = 'Аспирин'), (SELECT id FROM division WHERE title = 'Филиал №1'), 1),
 ((SELECT id FROM product WHERE title = 'Парацетамол'), (SELECT id FROM division WHERE title = 'Филиал №1'), 2),

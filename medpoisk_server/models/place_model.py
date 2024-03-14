@@ -24,4 +24,3 @@ class Place(Base):
     products: Mapped[Product] = relationship(
         "Product", back_populates="places", secondary="inventory"
     )
-    positions = relationship("Position", back_populates="place")

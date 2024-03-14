@@ -13,8 +13,8 @@ else:
     Product = "Product"
 
 
-class MinAmount(Base):
-    __tablename__ = "minamount"
+class Limit(Base):
+    __tablename__ = "limit"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     division_id: Mapped[int] = mapped_column(ForeignKey("division.id"))
